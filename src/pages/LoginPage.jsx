@@ -128,6 +128,15 @@ export const LoginPage = () => {
             />
           </div>
 
+          <div className="flex justify-end pr-1 -mt-1">
+            <Link
+              to="/forgot-password"
+              className="text-xs text-[var(--orange-bright)] hover:text-[var(--orange-vibrant)] hover:underline transition-colors cursor-pointer"
+            >
+              Forgot password?
+            </Link>
+          </div>
+
           <button
             type="submit"
             disabled={isSubmitting}

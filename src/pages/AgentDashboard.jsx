@@ -17,6 +17,7 @@ import {
   TrendingUp,
   MessageSquare
 } from 'lucide-react';
+import SpeechMicButton from '../components/SpeechMicButton';
 
 export const AgentDashboard = () => {
   const { user, logout } = useAuth();
@@ -404,19 +405,27 @@ export const AgentDashboard = () => {
                     )}
                   </div>
 
-                  {/* Send Message Form */}
-                  <form onSubmit={handleSendMessage} className="flex gap-2">
-                    <input
-                      type="text"
-                      value={newMessage}
-                      onChange={(e) => setNewMessage(e.target.value)}
-                      placeholder="Type agent reply to customer..."
-                      className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#13151c] border border-[var(--border-card)] text-white placeholder-[var(--text-muted)] text-xs outline-none focus:border-[var(--orange-vibrant)]"
-                    />
+                  {/* Send Message Form with Microphone Input */}
+                  <form onSubmit={handleSendMessage} className="flex gap-2 items-center">
+                    <div className="relative flex-1 flex items-center">
+                      <input
+                        type="text"
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        placeholder="Type agent reply to customer..."
+                        className="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-[#13151c] border border-[var(--border-card)] text-white placeholder-[var(--text-muted)] text-xs outline-none focus:border-[var(--orange-vibrant)]"
+                      />
+                      <SpeechMicButton
+                        onTranscript={(text) => {
+                          setNewMessage((prev) => (prev ? `${prev.trim()} ${text}` : text));
+                        }}
+                        className="absolute right-1.5"
+                      />
+                    </div>
                     <button
                       type="submit"
                       disabled={sendingMsg || !newMessage.trim()}
-                      className="btn-futuristic py-2 px-4 text-xs flex items-center gap-1.5 cursor-pointer"
+                      className="btn-futuristic py-2 px-4 text-xs flex items-center gap-1.5 cursor-pointer shrink-0"
                     >
                       <Send size={13} />
                       <span>Send Reply</span>

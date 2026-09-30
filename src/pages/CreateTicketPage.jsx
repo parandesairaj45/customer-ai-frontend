@@ -15,6 +15,7 @@ import {
   MessageSquareHeart,
   TrendingUp
 } from 'lucide-react';
+import SpeechMicButton from '../components/SpeechMicButton';
 
 const SECTORS = [
   'E-commerce',
@@ -186,9 +187,20 @@ export const CreateTicketPage = () => {
 
               {/* Experience Description Textarea */}
               <div>
-                <label className="block text-xs font-mono text-[var(--text-secondary)] mb-2 uppercase tracking-wider">
-                  Experience Details & Feedback
-                </label>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="block text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+                    Experience Details & Feedback
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <span className="hidden sm:inline text-[11px] font-mono text-[var(--text-muted)]">Voice input:</span>
+                    <SpeechMicButton
+                      onTranscript={(text) => {
+                        setIssueDescription((prev) => (prev ? `${prev.trim()} ${text}` : text));
+                      }}
+                      title="Dictate experience details with microphone"
+                    />
+                  </div>
+                </div>
                 <textarea
                   required
                   rows={5}

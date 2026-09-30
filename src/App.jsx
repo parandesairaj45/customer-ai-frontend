@@ -9,6 +9,8 @@ import RegisterPage from "./pages/RegisterPage";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import CreateTicketPage from "./pages/CreateTicketPage";
 import AgentDashboard from "./pages/AgentDashboard";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 import "./App.css";
 
@@ -25,6 +27,8 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/reset-password" element={<ResetPasswordPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/customer" element={<CustomerDashboard />} />
               <Route path="/customer/request" element={<CreateTicketPage />} />
