@@ -1,4 +1,4 @@
-/* App.css - Specialized Animations & Micro-Interactions */
+/* App.css - Specialized Animations & Micro-Interactions (Cyan + Purple + Orange Palette) */
 
 /* Smooth fade-in and slide-up animations */
 .animate-card-in {
@@ -14,10 +14,10 @@
 /* Cinematic Processing Sequence Animations */
 @keyframes stepGlow {
   0%, 100% {
-    box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
   }
   50% {
-    box-shadow: 0 0 30px rgba(255, 94, 0, 0.8), 0 0 45px rgba(255, 0, 127, 0.6);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.65), 0 0 45px rgba(0, 240, 255, 0.5);
   }
 }
 
@@ -28,10 +28,10 @@
 /* Glowing text ping */
 @keyframes textGlowPing {
   0%, 100% {
-    text-shadow: 0 0 8px rgba(255, 94, 0, 0.4);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
   }
   50% {
-    text-shadow: 0 0 20px rgba(255, 0, 127, 0.8), 0 0 35px rgba(229, 9, 20, 0.6);
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 30px rgba(255, 122, 0, 0.6);
   }
 }
 
@@ -46,9 +46,9 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #ff007f 20%, #ff5e00 50%, #ff007f 80%, transparent);
-  box-shadow: 0 0 15px #ff5e00, 0 0 30px #ff007f;
-  animation: laserScan 2.4s ease-in-out infinite alternate;
+  background: linear-gradient(90deg, transparent, #00f0ff 25%, #8b5cf6 50%, #ff7a00 75%, transparent);
+  box-shadow: 0 0 15px #00f0ff, 0 0 25px #8b5cf6;
+  animation: laserScan 2.6s ease-in-out infinite alternate;
   pointer-events: none;
 }
 
@@ -66,12 +66,12 @@
   }
 }
 
-/* Fluid Glowing Progress Bar */
+/* Fluid Glowing Progress Bar in Cyan -> Purple -> Orange */
 .glow-progress-bar {
-  background: linear-gradient(90deg, #e50914 0%, #ff5e00 50%, #ff007f 100%);
+  background: linear-gradient(90deg, #00f0ff 0%, #8b5cf6 50%, #ff7a00 100%);
   background-size: 200% 100%;
   animation: progressShimmer 2s linear infinite;
-  box-shadow: 0 0 18px rgba(255, 94, 0, 0.65), 0 0 30px rgba(255, 0, 127, 0.45);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.6), 0 0 30px rgba(139, 92, 246, 0.45);
 }
 
 @keyframes progressShimmer {
@@ -83,86 +83,105 @@
   }
 }
 
-/* Priority Badges - Dynamic glowing alarms strictly in red/orange/pink */
+/* Pulse Rings */
+.pulse-ring-outer {
+  position: absolute;
+  inset: -12px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(0, 240, 255, 0.35);
+  animation: pingRing 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.pulse-ring-inner {
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(139, 92, 246, 0.4);
+  animation: pingRing 2.4s cubic-bezier(0, 0, 0.2, 1) infinite 0.6s;
+}
+
+@keyframes pingRing {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Priority Badges - Dynamic glowing alarms in Cyan / Purple / Orange identity */
 .badge-urgent {
-  background: rgba(229, 9, 20, 0.2);
-  border: 1px solid rgba(229, 9, 20, 0.8);
-  color: #ff3344;
-  box-shadow: 0 0 18px rgba(229, 9, 20, 0.5), inset 0 0 8px rgba(229, 9, 20, 0.3);
-  animation: urgentPulse 1.2s infinite ease-in-out;
+  background: rgba(255, 122, 0, 0.22);
+  border: 1px solid rgba(255, 122, 0, 0.85);
+  color: #ff9440;
+  box-shadow: 0 0 18px rgba(255, 122, 0, 0.5), inset 0 0 8px rgba(255, 122, 0, 0.25);
+  animation: urgentPulse 1.4s infinite ease-in-out;
 }
 
 @keyframes urgentPulse {
   0%, 100% {
-    box-shadow: 0 0 12px rgba(229, 9, 20, 0.4);
-    border-color: rgba(229, 9, 20, 0.7);
+    box-shadow: 0 0 12px rgba(255, 122, 0, 0.4);
+    border-color: rgba(255, 122, 0, 0.7);
   }
   50% {
-    box-shadow: 0 0 25px rgba(255, 0, 127, 0.7), 0 0 40px rgba(229, 9, 20, 0.6);
-    border-color: #ff007f;
+    box-shadow: 0 0 25px rgba(255, 122, 0, 0.8), 0 0 35px rgba(239, 68, 68, 0.6);
+    border-color: #ff7a00;
   }
 }
 
 .badge-high {
-  background: rgba(255, 94, 0, 0.2);
-  border: 1px solid rgba(255, 94, 0, 0.75);
-  color: #ff8833;
-  box-shadow: 0 0 14px rgba(255, 94, 0, 0.38);
+  background: rgba(255, 154, 46, 0.18);
+  border: 1px solid rgba(255, 154, 46, 0.75);
+  color: #ffab5c;
+  box-shadow: 0 0 14px rgba(255, 154, 46, 0.35);
 }
 
 .badge-medium {
-  background: rgba(255, 140, 0, 0.16);
-  border: 1px solid rgba(255, 140, 0, 0.5);
-  color: #ffaa44;
+  background: rgba(139, 92, 246, 0.18);
+  border: 1px solid rgba(139, 92, 246, 0.6);
+  color: #c4b5fd;
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
 }
 
 .badge-low {
-  background: rgba(200, 30, 60, 0.15);
-  border: 1px solid rgba(200, 30, 60, 0.4);
-  color: #ff7788;
+  background: rgba(0, 240, 255, 0.15);
+  border: 1px solid rgba(0, 240, 255, 0.5);
+  color: #67e8f9;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
 }
 
-/* Cybernetic Particle Overlay */
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  filter: blur(1px);
-}
-
-/* Floating Orb Elements */
+/* Subtle Floating Glow Orbs for individual sections if needed */
 .orb-1 {
   position: absolute;
   top: 5%;
-  left: 15%;
+  left: 10%;
   width: 450px;
   height: 450px;
-  background: radial-gradient(circle, rgba(229, 9, 20, 0.28) 0%, transparent 70%);
-  filter: blur(80px);
-  animation: orbPulse1 14s infinite ease-in-out;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.16) 0%, transparent 70%);
+  filter: blur(95px);
   pointer-events: none;
 }
 
 .orb-2 {
   position: absolute;
   top: 35%;
-  right: 10%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(255, 94, 0, 0.24) 0%, transparent 70%);
-  filter: blur(95px);
-  animation: orbPulse2 16s infinite ease-in-out;
+  right: 8%;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, transparent 70%);
+  filter: blur(105px);
   pointer-events: none;
 }
 
 .orb-3 {
   position: absolute;
-  bottom: 10%;
-  left: 30%;
-  width: 550px;
-  height: 550px;
-  background: radial-gradient(circle, rgba(255, 0, 127, 0.25) 0%, transparent 70%);
-  filter: blur(100px);
-  animation: orbPulse3 18s infinite ease-in-out;
+  bottom: 8%;
+  left: 25%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 122, 0, 0.15) 0%, transparent 70%);
+  filter: blur(110px);
   pointer-events: none;
 }

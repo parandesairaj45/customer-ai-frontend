@@ -3,20 +3,17 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api';
 import { 
-  Flame, 
   ArrowLeft, 
   Sparkles, 
-  Send, 
   CheckCircle, 
   Layers, 
-  HeartHandshake, 
   AlertTriangle,
-  RotateCw,
-  Cpu,
   Brain,
   Tag,
   Zap,
-  Activity
+  Activity,
+  MessageSquareHeart,
+  TrendingUp
 } from 'lucide-react';
 
 const SECTORS = [
@@ -31,10 +28,10 @@ const SECTORS = [
 ];
 
 const PROCESSING_STEPS = [
-  { title: 'Understanding issue...', desc: 'Extracting semantic problem context & customer intent', icon: Brain },
-  { title: 'Classifying problem...', desc: 'Matching sector operational taxonomy & category', icon: Tag },
-  { title: 'Checking urgency...', desc: 'Evaluating emotional sentiment & customer distress index', icon: Zap },
-  { title: 'Generating solution...', desc: 'Synthesizing proactive operational remedy protocol', icon: Sparkles },
+  { title: 'Understanding experience context...', desc: 'Extracting semantic journey context & customer intent', icon: Brain },
+  { title: 'Classifying feedback topic...', desc: 'Matching sector operational taxonomy & category', icon: Tag },
+  { title: 'Evaluating sentiment & urgency...', desc: 'Evaluating emotional polarity & customer impact index', icon: Zap },
+  { title: 'Synthesizing CX recommendation...', desc: 'Synthesizing proactive operational remedy protocol', icon: Sparkles },
 ];
 
 export const CreateTicketPage = () => {
@@ -62,10 +59,6 @@ export const CreateTicketPage = () => {
     const startTime = Date.now();
 
     // Cinematic sequence timer for the 4 steps:
-    // 1. Understanding issue
-    // 2. Classifying problem
-    // 3. Checking urgency
-    // 4. Generating solution
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
       if (elapsed < 800) {
@@ -111,7 +104,7 @@ export const CreateTicketPage = () => {
     } catch (err) {
       clearInterval(interval);
       setIsProcessing(false);
-      setError(err.response?.data?.error || err.message || 'Failed to submit ticket. Please check connection.');
+      setError(err.response?.data?.error || err.message || 'Failed to submit experience feedback. Please check connection.');
     }
   };
 
@@ -129,21 +122,18 @@ export const CreateTicketPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#070508] text-[#fbebee] flex flex-col relative overflow-hidden">
-      {/* Ambient background glows */}
-      <div className="orb-1 pointer-events-none" />
-      <div className="orb-2 pointer-events-none" />
-      <div className="fixed inset-0 bg-cyber-grid pointer-events-none z-0 opacity-40" />
-
+    <div className="min-h-screen bg-transparent text-[var(--text-primary)] flex flex-col relative overflow-hidden">
       {/* Top Header */}
-      <header className="relative z-10 w-full bg-[#0d070b]/80 backdrop-blur-md border-b border-[#ff5e00]/15 px-6 py-4">
+      <header className="relative z-10 w-full bg-[var(--bg-card)]/80 backdrop-blur-md border-b border-[var(--border-subtle)] px-6 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link to="/customer" className="flex items-center gap-2 text-sm text-[#c9b1b8] hover:text-white transition-colors">
+          <Link to="/customer" className="flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-white transition-colors">
             <ArrowLeft size={16} />
             <span>Back to Dashboard</span>
           </Link>
           <div className="flex items-center gap-2">
-            <Flame size={18} className="text-[#ff5e00]" />
+            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#00f0ff] via-[#8b5cf6] to-[#ff7a00] flex items-center justify-center">
+              <Zap size={13} className="text-white fill-white" />
+            </div>
             <span className="font-display font-bold text-sm text-white">RESOX AI</span>
           </div>
         </div>
@@ -151,59 +141,63 @@ export const CreateTicketPage = () => {
 
       {/* Main Container */}
       <main className="relative z-10 flex-1 max-w-3xl w-full mx-auto px-6 py-10">
-        <div className="mb-8 text-center sm:text-left">
+        <div className="mb-8 text-center sm:text-left animate-card-in">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--cyan-deep)]/25 border border-[var(--cyan-vibrant)]/30 text-[11px] font-mono text-[var(--cyan-bright)] mb-3">
+            <MessageSquareHeart size={13} />
+            CUSTOMER FEEDBACK INGESTION
+          </div>
           <h1 className="font-display text-2xl sm:text-3xl font-bold text-white mb-2">
-            Submit Customer Complaint
+            Share Your Customer Experience
           </h1>
-          <p className="text-sm text-[#c9b1b8]">
-            Provide details of your issue. ResoX AI will analyze, categorize, and synthesize an operational resolution.
+          <p className="text-sm text-[var(--text-secondary)]">
+            Share your customer journey or feedback. ResoX AI provides real-time sentiment analysis, urgency triage, and synthesized operational actions.
           </p>
         </div>
 
         {/* Error Alert */}
         {error && (
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-[#e50914]/15 border border-[#e50914]/40 text-[#ff3344] text-sm mb-6">
-            <AlertTriangle size={18} className="shrink-0" />
+          <div className="flex items-center gap-3 p-4 rounded-xl bg-red-950/40 border border-red-500/40 text-red-300 text-sm mb-6 animate-card-in">
+            <AlertTriangle size={18} className="shrink-0 text-red-400" />
             <span>{error}</span>
           </div>
         )}
 
         {/* Form or Result View */}
         {!aiResult ? (
-          <div className="moving-border-card p-6 sm:p-8">
+          <div className="moving-border-card p-6 sm:p-8 animate-card-in stagger-1">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Sector Dropdown */}
               <div>
-                <label className="block text-xs font-mono text-[#c9b1b8] mb-2 uppercase tracking-wider">
+                <label className="block text-xs font-mono text-[var(--text-secondary)] mb-2 uppercase tracking-wider">
                   Operational Business Sector
                 </label>
                 <select
                   value={sector}
                   onChange={(e) => setSector(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-[#0a0508] border border-[#ff5e00]/30 focus:border-[#ff007f] text-white text-sm outline-none transition-all cursor-pointer"
+                  className="w-full px-4 py-3 rounded-xl bg-[#090b16] border border-[var(--border-subtle)] focus:border-[var(--cyan-vibrant)] text-white text-sm outline-none transition-all cursor-pointer shadow-inner"
                 >
                   {SECTORS.map((sec) => (
-                    <option key={sec} value={sec} className="bg-[#120810] text-white">
+                    <option key={sec} value={sec} className="bg-[#0b0e1e] text-white">
                       {sec}
                     </option>
                   ))}
                 </select>
               </div>
 
-              {/* Issue Description Textarea */}
+              {/* Experience Description Textarea */}
               <div>
-                <label className="block text-xs font-mono text-[#c9b1b8] mb-2 uppercase tracking-wider">
-                  Complaint Description
+                <label className="block text-xs font-mono text-[var(--text-secondary)] mb-2 uppercase tracking-wider">
+                  Experience Details & Feedback
                 </label>
                 <textarea
                   required
                   rows={5}
                   value={issueDescription}
                   onChange={(e) => setIssueDescription(e.target.value)}
-                  placeholder="Clearly describe the problem encountered, order details, or unexpected failure..."
-                  className="w-full p-4 rounded-xl bg-[#0a0508] border border-[#ff5e00]/30 focus:border-[#ff007f] text-white placeholder-[#826c74] text-sm outline-none transition-all focus:shadow-[0_0_15px_rgba(255,0,127,0.25)] resize-y"
+                  placeholder="Share your experience details, feedback, journey friction, or service expectations..."
+                  className="w-full p-4 rounded-xl bg-[#090b16] border border-[var(--border-subtle)] focus:border-[var(--cyan-vibrant)] text-white placeholder-[var(--text-muted)] text-sm outline-none transition-all focus:shadow-[0_0_15px_rgba(0,240,255,0.2)] resize-y shadow-inner"
                 />
-                <div className="flex justify-between items-center mt-1 text-[11px] font-mono text-[#826c74]">
+                <div className="flex justify-between items-center mt-1 text-[11px] font-mono text-[var(--text-muted)]">
                   <span>Minimum 5 characters required</span>
                   <span>{issueDescription.length} characters</span>
                 </div>
@@ -213,10 +207,10 @@ export const CreateTicketPage = () => {
               <button
                 type="submit"
                 disabled={isProcessing || issueDescription.trim().length < 5}
-                className="btn-futuristic w-full py-3.5 text-sm flex items-center justify-center gap-2 mt-4"
+                className="btn-futuristic w-full py-3.5 text-sm flex items-center justify-center gap-2 mt-4 cursor-pointer"
               >
                 <Sparkles size={16} />
-                <span>Submit & Run AI Analysis</span>
+                <span>Submit & Run AI Experience Analysis</span>
               </button>
             </form>
           </div>
@@ -224,12 +218,12 @@ export const CreateTicketPage = () => {
           /* AI Results Display */
           <div className="space-y-6 animate-card-in">
             {/* Top Success Banner */}
-            <div className="p-4 rounded-xl bg-gradient-to-r from-[#e50914]/20 via-[#ff5e00]/20 to-[#ff007f]/20 border border-[#ff007f]/40 flex items-center justify-between">
+            <div className="p-4 rounded-xl bg-gradient-to-r from-[var(--cyan-deep)]/30 via-[var(--purple-deep)]/30 to-[var(--orange-deep)]/25 border border-[var(--cyan-vibrant)]/40 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <CheckCircle size={22} className="text-[#ff5e00]" />
+                <CheckCircle size={22} className="text-[var(--cyan-vibrant)]" />
                 <div>
-                  <h3 className="font-display font-bold text-sm text-white">Ticket Created & Analyzed</h3>
-                  <p className="text-xs text-[#c9b1b8]">Stored securely with Ticket ID #{aiResult.id?.slice(0, 8)}</p>
+                  <h3 className="font-display font-bold text-sm text-white">Experience Record Created & Analyzed</h3>
+                  <p className="text-xs text-[var(--text-secondary)]">Stored securely with Experience Ticket ID #{aiResult.id?.slice(0, 8)}</p>
                 </div>
               </div>
               <span className={`text-xs font-mono px-3 py-1 rounded-full uppercase font-bold ${getPriorityStyle(aiResult.priority)}`}>
@@ -241,36 +235,37 @@ export const CreateTicketPage = () => {
             <div className="moving-border-card p-6 sm:p-8 space-y-6">
               {/* Summary */}
               <div>
-                <span className="text-xs font-mono text-[#ff7e26] block mb-1 uppercase tracking-wider">
-                  AI Summary
+                <span className="text-xs font-mono text-[var(--cyan-bright)] block mb-1 uppercase tracking-wider flex items-center gap-1.5">
+                  <TrendingUp size={13} />
+                  AI Experience Summary
                 </span>
                 <p className="text-base text-white leading-relaxed font-medium">
                   "{aiResult.summary}"
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[#ff5e00]/15">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[var(--border-subtle)]">
                 {/* Category */}
-                <div className="p-3.5 rounded-xl bg-[#0a0508] border border-[#ff5e00]/20">
-                  <span className="text-[11px] font-mono text-[#826c74] block mb-1">CATEGORY</span>
+                <div className="p-3.5 rounded-xl bg-[#090b16] border border-[var(--border-subtle)]">
+                  <span className="text-[11px] font-mono text-[var(--text-muted)] block mb-1">CATEGORY</span>
                   <div className="text-sm font-bold text-white flex items-center gap-1.5">
-                    <Layers size={14} className="text-[#ff5e00]" />
+                    <Layers size={14} className="text-[var(--cyan-bright)]" />
                     <span>{aiResult.category}</span>
                   </div>
                 </div>
 
                 {/* Priority */}
-                <div className="p-3.5 rounded-xl bg-[#0a0508] border border-[#ff5e00]/20">
-                  <span className="text-[11px] font-mono text-[#826c74] block mb-1">TRIAGE PRIORITY</span>
-                  <div className="text-sm font-bold uppercase text-[#ff3344]">
+                <div className="p-3.5 rounded-xl bg-[#090b16] border border-[var(--border-subtle)]">
+                  <span className="text-[11px] font-mono text-[var(--text-muted)] block mb-1">TRIAGE PRIORITY</span>
+                  <div className="text-sm font-bold uppercase text-[var(--orange-bright)]">
                     {aiResult.priority}
                   </div>
                 </div>
 
                 {/* Sentiment */}
-                <div className="p-3.5 rounded-xl bg-[#0a0508] border border-[#ff5e00]/20">
-                  <span className="text-[11px] font-mono text-[#826c74] block mb-1">DETECTED SENTIMENT</span>
-                  <div className="text-sm font-bold text-[#ff2a96] flex items-center gap-1.5">
+                <div className="p-3.5 rounded-xl bg-[#090b16] border border-[var(--border-subtle)]">
+                  <span className="text-[11px] font-mono text-[var(--text-muted)] block mb-1">DETECTED SENTIMENT</span>
+                  <div className="text-sm font-bold text-[var(--purple-neon)] flex items-center gap-1.5">
                     <Activity size={14} />
                     <span>{aiResult.sentiment}</span>
                   </div>
@@ -278,35 +273,35 @@ export const CreateTicketPage = () => {
               </div>
 
               {/* Recommended Action */}
-              <div className="p-4 rounded-xl bg-[#ff007f]/10 border border-[#ff007f]/30">
-                <span className="text-xs font-mono text-[#ff2a96] block mb-1 font-bold flex items-center gap-1.5">
+              <div className="p-4 rounded-xl bg-[var(--purple-deep)]/25 border border-[var(--purple-vibrant)]/35">
+                <span className="text-xs font-mono text-[var(--purple-neon)] block mb-1 font-bold flex items-center gap-1.5">
                   <Sparkles size={14} />
-                  RECOMMENDED ACTION
+                  RECOMMENDED ACTION PROTOCOL
                 </span>
-                <p className="text-sm text-[#fbebee] leading-relaxed">
+                <p className="text-sm text-[var(--text-primary)] leading-relaxed">
                   {aiResult.recommendedAction}
                 </p>
               </div>
 
               {/* Navigation Options */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-[#ff5e00]/15">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-[var(--border-subtle)]">
                 <button
                   type="button"
                   onClick={() => {
                     setAiResult(null);
                     setIssueDescription('');
                   }}
-                  className="btn-ghost-futuristic text-xs py-2.5 px-4 w-full sm:w-auto"
+                  className="btn-ghost-futuristic text-xs py-2.5 px-4 w-full sm:w-auto cursor-pointer"
                 >
-                  Submit Another Ticket
+                  Share Another Experience
                 </button>
 
                 <button
                   type="button"
                   onClick={() => navigate('/customer')}
-                  className="btn-futuristic text-xs py-2.5 px-6 w-full sm:w-auto"
+                  className="btn-futuristic text-xs py-2.5 px-6 w-full sm:w-auto cursor-pointer"
                 >
-                  Go to My Dashboard
+                  Go to Experience Portal
                 </button>
               </div>
             </div>
@@ -316,15 +311,15 @@ export const CreateTicketPage = () => {
 
       {/* Cinematic AI Processing Sequence Modal */}
       {isProcessing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-          <div className="moving-border-card w-full max-w-lg p-8 bg-[#10070e] text-center relative overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="moving-border-card w-full max-w-lg p-8 bg-[#0b0e1d] text-center relative overflow-hidden shadow-2xl">
             <div className="scanline-beam" />
 
             {/* Animated Neural Core */}
             <div className="relative w-20 h-20 mx-auto mb-6 flex items-center justify-center">
               <div className="pulse-ring-outer" />
               <div className="pulse-ring-inner" />
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#e50914] via-[#ff5e00] to-[#ff007f] flex items-center justify-center shadow-[0_0_30px_rgba(255,0,127,0.7)] animate-pulse">
+              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#00f0ff] via-[#8b5cf6] to-[#ff7a00] flex items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.7)] animate-pulse">
                 {React.createElement(PROCESSING_STEPS[currentStep]?.icon || Brain, {
                   size: 26,
                   color: '#fff',
@@ -336,12 +331,12 @@ export const CreateTicketPage = () => {
             <h3 className="font-display text-xl font-bold text-white mb-1.5 text-fire-gradient">
               {PROCESSING_STEPS[currentStep]?.title}
             </h3>
-            <p className="text-xs text-[#c9b1b8] mb-6">
+            <p className="text-xs text-[var(--text-secondary)] mb-6">
               {PROCESSING_STEPS[currentStep]?.desc}
             </p>
 
             {/* Progress Bar */}
-            <div className="w-full bg-[#180812] h-2 rounded-full overflow-hidden border border-[#ff5e00]/25 mb-6">
+            <div className="w-full bg-[#12162e] h-2 rounded-full overflow-hidden border border-[var(--border-subtle)] mb-6">
               <div
                 className="glow-progress-bar h-full rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
@@ -358,19 +353,19 @@ export const CreateTicketPage = () => {
                     key={step.title}
                     className={`flex items-center gap-3 p-2.5 rounded-lg text-xs font-mono transition-all ${
                       isCurr
-                        ? 'bg-[#ff007f]/15 border border-[#ff007f]/40 text-white font-bold'
+                        ? 'bg-[var(--cyan-deep)]/25 border border-[var(--cyan-vibrant)]/40 text-white font-bold'
                         : isDone
-                        ? 'text-[#ff7e26]'
-                        : 'text-[#826c74]'
+                        ? 'text-[var(--cyan-bright)]'
+                        : 'text-[var(--text-muted)]'
                     }`}
                   >
                     <span
                       className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
                         isDone
-                          ? 'bg-[#ff5e00] text-white'
+                          ? 'bg-[var(--cyan-vibrant)] text-black font-bold'
                           : isCurr
-                          ? 'bg-[#ff007f] text-white animate-spin'
-                          : 'bg-white/10 text-[#826c74]'
+                          ? 'bg-[var(--purple-vibrant)] text-white animate-spin'
+                          : 'bg-white/10 text-[var(--text-muted)]'
                       }`}
                     >
                       {isDone ? '✓' : idx + 1}
@@ -386,4 +381,5 @@ export const CreateTicketPage = () => {
     </div>
   );
 };
+
 export default CreateTicketPage;
