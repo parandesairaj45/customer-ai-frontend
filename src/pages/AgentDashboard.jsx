@@ -132,6 +132,7 @@ export const AgentDashboard = () => {
   const getPriorityBadge = (priority) => {
     switch (priority?.toLowerCase()) {
       case 'urgent':
+      case 'critical':
         return 'badge-urgent';
       case 'high':
         return 'badge-high';
@@ -140,6 +141,36 @@ export const AgentDashboard = () => {
       default:
         return 'badge-low';
     }
+  };
+
+  const getSentimentBadge = (sentiment) => {
+    const s = (sentiment || '').toLowerCase();
+    if (s.includes('pos')) {
+      return (
+        <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+          Positive
+        </span>
+      );
+    }
+    if (s.includes('neg') || s.includes('frust') || s.includes('disapp') || s.includes('angry')) {
+      return (
+        <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-rose-500/15 text-rose-400 border border-rose-500/30">
+          Negative
+        </span>
+      );
+    }
+    if (s.includes('mix')) {
+      return (
+        <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/30">
+          Mixed
+        </span>
+      );
+    }
+    return (
+      <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-slate-500/15 text-slate-300 border border-slate-500/30">
+        Neutral
+      </span>
+    );
   };
 
   return (
@@ -252,18 +283,21 @@ export const AgentDashboard = () => {
                         : 'bg-[var(--bg-card)] border-[var(--border-card)] hover:border-[var(--orange-vibrant)]/50'
                     }`}
                   >
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2">
+                      <div className="flex items-center gap-1.5">
                         {getStatusBadge(t.status)}
                         <span className="text-[11px] font-mono text-[var(--orange-bright)] px-2 py-0.5 rounded bg-[var(--orange-primary)]/10">
                           {t.sector}
                         </span>
                       </div>
-                      {t.ai_priority && (
-                        <span className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase font-bold ${getPriorityBadge(t.ai_priority)}`}>
-                          {t.ai_priority}
-                        </span>
-                      )}
+                      <div className="flex items-center gap-1.5">
+                        {t.ai_sentiment && getSentimentBadge(t.ai_sentiment)}
+                        {t.ai_priority && (
+                          <span className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase font-bold ${getPriorityBadge(t.ai_priority)}`}>
+                            {t.ai_priority}
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     <h4 className="font-display text-sm font-bold text-white mb-1 truncate">
@@ -336,37 +370,76 @@ export const AgentDashboard = () => {
                 </div>
 
                 {/* AI Analysis Panel */}
-                <div className="p-4 rounded-xl bg-gradient-to-br from-[var(--orange-primary)]/15 via-[var(--purple-deep)]/20 to-[var(--bg-card)] border border-[var(--orange-vibrant)]/35 space-y-3">
+                <div className="p-4 rounded-xl bg-gradient-to-br from-[var(--orange-primary)]/15 via-[#181a24] to-[#13151c] border border-[var(--orange-vibrant)]/35 space-y-3.5">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-mono text-[var(--orange-bright)] font-bold flex items-center gap-1.5">
                       <Sparkles size={14} />
-                      AI EXPERIENCE ANALYSIS & REMEDY ACTION
+                      AI EXPERIENCE INTELLIGENCE & REMEDY
                     </span>
-                    <span className="text-[10px] font-mono text-[var(--orange-light)]">GEMINI 2.5 FLASH</span>
+                    <span className="text-[10px] font-mono text-[var(--orange-light)]">LIVE GEMINI 3.5</span>
                   </div>
 
+                  {/* 1. WHAT HAPPENED? */}
                   {selectedTicket.ai_summary && (
-                    <div className="text-xs text-[var(--text-secondary)]">
-                      <strong className="text-white">Summary: </strong>
-                      {selectedTicket.ai_summary}
+                    <div className="p-3 rounded-lg bg-[#11131a] border border-[var(--border-card)]">
+                      <span className="text-[10px] font-mono text-[var(--text-muted)] block uppercase mb-1">
+                        1. What Happened? (AI Summary)
+                      </span>
+                      <p className="text-xs text-white leading-relaxed font-medium">
+                        "{selectedTicket.ai_summary}"
+                      </p>
                     </div>
                   )}
 
-                  <div className="grid grid-cols-2 gap-3 text-xs pt-1">
-                    <div>
-                      <strong className="text-white block text-[11px] text-[var(--text-muted)]">CATEGORY</strong>
-                      <span className="text-[var(--orange-bright)] font-semibold">{selectedTicket.ai_category || 'N/A'}</span>
+                  {/* 2. HOW DOES THE CUSTOMER FEEL? & 3. HOW URGENT IS IT? */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+                    <div className="p-2.5 rounded-lg bg-[#11131a] border border-[var(--border-card)]">
+                      <span className="text-[10px] font-mono text-[var(--text-muted)] block uppercase mb-1">
+                        2. Customer Sentiment
+                      </span>
+                      <div>
+                        {getSentimentBadge(selectedTicket.ai_sentiment)}
+                      </div>
                     </div>
-                    <div>
-                      <strong className="text-white block text-[11px] text-[var(--text-muted)]">SENTIMENT</strong>
-                      <span className="text-[var(--purple-neon)] font-semibold">{selectedTicket.ai_sentiment || 'N/A'}</span>
+                    <div className="p-2.5 rounded-lg bg-[#11131a] border border-[var(--border-card)]">
+                      <span className="text-[10px] font-mono text-[var(--text-muted)] block uppercase mb-1">
+                        Category
+                      </span>
+                      <span className="text-xs font-semibold text-[var(--orange-bright)] block truncate">
+                        {selectedTicket.ai_category || selectedTicket.sector || 'General'}
+                      </span>
+                    </div>
+                    <div className="p-2.5 rounded-lg bg-[#11131a] border border-[var(--border-card)]">
+                      <span className="text-[10px] font-mono text-[var(--text-muted)] block uppercase mb-1">
+                        3. Urgency / Priority
+                      </span>
+                      <span className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase font-bold ${getPriorityBadge(selectedTicket.ai_priority)}`}>
+                        {selectedTicket.ai_priority || 'medium'}
+                      </span>
                     </div>
                   </div>
 
+                  {/* 4. WHAT SHOULD THE AGENT DO? */}
                   {selectedTicket.ai_recommended_action && (
                     <div className="p-3 rounded-lg bg-[var(--orange-primary)]/15 border border-[var(--orange-vibrant)]/30 text-xs">
-                      <strong className="text-white block mb-0.5">Recommended Next Action:</strong>
-                      <p className="text-[var(--text-primary)] leading-relaxed">{selectedTicket.ai_recommended_action}</p>
+                      <span className="text-[10px] font-mono text-[var(--orange-bright)] block uppercase font-bold mb-1">
+                        4. Recommended Agent Action:
+                      </span>
+                      <p className="text-[var(--text-primary)] leading-relaxed font-medium">
+                        {selectedTicket.ai_recommended_action}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* 5. WHAT WAS THE CUSTOMER TOLD? */}
+                  {(selectedTicket.ai_customer_response || selectedTicket.resolution_notes) && (
+                    <div className="p-3 rounded-lg bg-[#14161f] border border-[var(--border-subtle)] text-xs">
+                      <span className="text-[10px] font-mono text-[var(--purple-neon)] block uppercase font-bold mb-1">
+                        AI Customer Response (Dispatched on Ingestion):
+                      </span>
+                      <p className="text-[var(--text-secondary)] leading-relaxed italic">
+                        "{selectedTicket.ai_customer_response || selectedTicket.resolution_notes}"
+                      </p>
                     </div>
                   )}
                 </div>

@@ -11,6 +11,7 @@ import CreateTicketPage from "./pages/CreateTicketPage";
 import AgentDashboard from "./pages/AgentDashboard";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import "./App.css";
 
@@ -30,10 +31,38 @@ function App() {
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
               <Route path="/reset-password" element={<ResetPasswordPage />} />
               <Route path="/register" element={<RegisterPage />} />
-              <Route path="/customer" element={<CustomerDashboard />} />
-              <Route path="/customer/request" element={<CreateTicketPage />} />
-              <Route path="/support" element={<AgentDashboard />} />
-              <Route path="/agent" element={<AgentDashboard />} />
+              <Route
+                path="/customer"
+                element={
+                  <ProtectedRoute allowedRoles={['customer']}>
+                    <CustomerDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/customer/request"
+                element={
+                  <ProtectedRoute allowedRoles={['customer']}>
+                    <CreateTicketPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/support"
+                element={
+                  <ProtectedRoute allowedRoles={['support_agent', 'agent']}>
+                    <AgentDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/agent"
+                element={
+                  <ProtectedRoute allowedRoles={['support_agent', 'agent']}>
+                    <AgentDashboard />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </div>
         </div>

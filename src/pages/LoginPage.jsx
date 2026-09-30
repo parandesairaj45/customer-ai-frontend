@@ -17,8 +17,15 @@ export const LoginPage = () => {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { login } = useAuth();
+  const { user, isAuthenticated, login } = useAuth();
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (isAuthenticated && user) {
+      const isAgent = user.role === 'support_agent' || user.role === 'agent' || user.role === 'support';
+      navigate(isAgent ? '/agent' : '/customer', { replace: true });
+    }
+  }, [isAuthenticated, user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,13 +33,14 @@ export const LoginPage = () => {
     setError('');
     setIsSubmitting(true);
 
-    const res = await login(email, password);
+    const res = await login(email, password, role);
 
     setIsSubmitting(false);
 
     if (res.success) {
-      if (res.user?.role === 'support_agent') {
-        navigate('/support');
+      const isAgent = res.user?.role === 'support_agent' || res.user?.role === 'agent' || res.user?.role === 'support';
+      if (isAgent) {
+        navigate('/agent');
       } else {
         navigate('/customer');
       }

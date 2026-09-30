@@ -63,6 +63,7 @@ export const CustomerDashboard = () => {
   const getPriorityBadge = (priority) => {
     switch (priority?.toLowerCase()) {
       case 'urgent':
+      case 'critical':
         return 'badge-urgent';
       case 'high':
         return 'badge-high';
@@ -71,6 +72,36 @@ export const CustomerDashboard = () => {
       default:
         return 'badge-low';
     }
+  };
+
+  const getSentimentBadge = (sentiment) => {
+    const s = (sentiment || '').toLowerCase();
+    if (s.includes('pos')) {
+      return (
+        <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+          Positive
+        </span>
+      );
+    }
+    if (s.includes('neg') || s.includes('frust') || s.includes('disapp') || s.includes('angry')) {
+      return (
+        <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-rose-500/15 text-rose-400 border border-rose-500/30">
+          Negative
+        </span>
+      );
+    }
+    if (s.includes('mix')) {
+      return (
+        <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/30">
+          Mixed
+        </span>
+      );
+    }
+    return (
+      <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-slate-500/15 text-slate-300 border border-slate-500/30">
+        Neutral
+      </span>
+    );
   };
 
   return (
@@ -191,6 +222,7 @@ export const CustomerDashboard = () => {
                         {ticket.ai_priority}
                       </span>
                     )}
+                    {ticket.ai_sentiment && getSentimentBadge(ticket.ai_sentiment)}
                   </div>
 
                   <span className="text-xs text-[var(--text-muted)] font-mono flex items-center gap-1">
@@ -209,6 +241,19 @@ export const CustomerDashboard = () => {
                   {ticket.issue_description}
                 </p>
 
+                {/* AI Customer Response */}
+                {(ticket.ai_customer_response || ticket.resolution_notes) && (
+                  <div className="p-3 rounded-lg bg-[var(--orange-primary)]/10 border border-[var(--orange-vibrant)]/25 text-xs text-[var(--text-primary)] space-y-1">
+                    <span className="text-[10px] font-mono text-[var(--orange-bright)] font-bold uppercase flex items-center gap-1.5">
+                      <MessageSquareHeart size={12} />
+                      AI Support Response:
+                    </span>
+                    <p className="leading-relaxed text-[var(--text-secondary)] italic">
+                      "{ticket.ai_customer_response || ticket.resolution_notes}"
+                    </p>
+                  </div>
+                )}
+
                 {/* AI Category & Sentiment & Action */}
                 {(ticket.ai_category || ticket.ai_recommended_action) && (
                   <div className="pt-3 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
@@ -218,10 +263,10 @@ export const CustomerDashboard = () => {
                         Category: {ticket.ai_category}
                       </span>
                     )}
-                    {ticket.ai_sentiment && (
-                      <span className="text-[var(--purple-neon)] font-mono flex items-center gap-1">
-                        <Activity size={12} />
-                        Sentiment: {ticket.ai_sentiment}
+                    {ticket.ai_recommended_action && (
+                      <span className="text-[var(--text-muted)] font-mono flex items-center gap-1 line-clamp-1">
+                        <Zap size={12} className="text-[var(--orange-bright)]" />
+                        Next Action: {ticket.ai_recommended_action}
                       </span>
                     )}
                   </div>

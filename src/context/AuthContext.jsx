@@ -16,10 +16,12 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem('token') || localStorage.getItem('resox_token') || null);
   const [loading, setLoading] = useState(false);
 
-  const login = async (email, password) => {
+  const login = async (email, password, role = null) => {
     setLoading(true);
     try {
-      const res = await api.post('/api/auth/login', { email, password });
+      const payload = { email, password };
+      if (role) payload.role = role;
+      const res = await api.post('/api/auth/login', payload);
       if (res.data && res.data.token) {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('resox_token', res.data.token);

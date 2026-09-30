@@ -98,6 +98,8 @@ export const CreateTicketPage = () => {
             priority: ticket.ai_priority,
             sentiment: ticket.ai_sentiment,
             recommendedAction: ticket.ai_recommended_action,
+            customerResponse: ticket.ai_customer_response || ticket.resolution_notes,
+            status: ticket.status ? (ticket.status === 'open' ? 'Submitted / Under Review' : ticket.status) : 'Submitted / Under Review',
             sector: ticket.sector,
           });
         }, 400);
@@ -230,17 +232,22 @@ export const CreateTicketPage = () => {
           /* AI Results Display */
           <div className="space-y-6 animate-card-in">
             {/* Top Success Banner */}
-            <div className="p-4 rounded-xl bg-gradient-to-r from-[var(--orange-primary)]/20 via-[var(--purple-deep)]/25 to-[var(--bg-card)] border border-[var(--orange-vibrant)]/40 flex items-center justify-between">
+            <div className="p-4 rounded-xl bg-gradient-to-r from-[var(--orange-primary)]/20 via-[var(--purple-deep)]/25 to-[var(--bg-card)] border border-[var(--orange-vibrant)]/40 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <CheckCircle size={22} className="text-[var(--orange-bright)]" />
+                <CheckCircle size={22} className="text-[var(--orange-bright)] shrink-0" />
                 <div>
                   <h3 className="font-display font-bold text-sm text-white">Experience Record Created & Analyzed</h3>
                   <p className="text-xs text-[var(--text-secondary)]">Stored securely with Experience Ticket ID #{aiResult.id?.slice(0, 8)}</p>
                 </div>
               </div>
-              <span className={`text-xs font-mono px-3 py-1 rounded-full uppercase font-bold ${getPriorityStyle(aiResult.priority)}`}>
-                {aiResult.priority} PRIORITY
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono px-3 py-1 rounded-full uppercase font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  {aiResult.status || 'Submitted / Under Review'}
+                </span>
+                <span className={`text-xs font-mono px-3 py-1 rounded-full uppercase font-bold ${getPriorityStyle(aiResult.priority)}`}>
+                  {aiResult.priority} PRIORITY
+                </span>
+              </div>
             </div>
 
             {/* AI Result Details Card */}
@@ -255,6 +262,19 @@ export const CreateTicketPage = () => {
                   "{aiResult.summary}"
                 </p>
               </div>
+
+              {/* AI Customer Response */}
+              {aiResult.customerResponse && (
+                <div className="p-4 rounded-xl bg-gradient-to-r from-[var(--orange-primary)]/15 via-[#181a24] to-[#12141c] border border-[var(--orange-vibrant)]/35 space-y-1.5">
+                  <span className="text-xs font-mono text-[var(--orange-bright)] font-bold flex items-center gap-1.5 uppercase">
+                    <MessageSquareHeart size={14} />
+                    AI Customer Response
+                  </span>
+                  <p className="text-sm text-white leading-relaxed font-normal">
+                    {aiResult.customerResponse}
+                  </p>
+                </div>
+              )}
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[var(--border-subtle)]">
                 {/* Category */}
@@ -277,9 +297,11 @@ export const CreateTicketPage = () => {
                 {/* Sentiment */}
                 <div className="p-3.5 rounded-xl bg-[#13151c] border border-[var(--border-card)]">
                   <span className="text-[11px] font-mono text-[var(--text-muted)] block mb-1">DETECTED SENTIMENT</span>
-                  <div className="text-sm font-bold text-[var(--purple-neon)] flex items-center gap-1.5">
-                    <Activity size={14} />
-                    <span>{aiResult.sentiment}</span>
+                  <div className="text-sm font-bold text-white flex items-center gap-1.5">
+                    <Activity size={14} className="text-[var(--orange-bright)]" />
+                    <span className="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-purple-500/15 text-[var(--purple-neon)] border border-purple-500/30">
+                      {aiResult.sentiment}
+                    </span>
                   </div>
                 </div>
               </div>
