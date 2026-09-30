@@ -266,9 +266,23 @@ export const AgentDashboard = () => {
                 <div className="w-8 h-8 rounded-full border-2 border-[var(--orange-vibrant)] border-t-transparent animate-spin mx-auto mb-3" />
                 <p className="text-sm font-mono">Loading feedback records...</p>
               </div>
+            ) : tickets.length === 0 ? (
+              <div className="moving-border-card p-10 text-center text-[var(--text-secondary)] flex flex-col items-center justify-center animate-card-in">
+                <div className="w-12 h-12 rounded-2xl bg-[var(--orange-primary)]/10 border border-[var(--orange-vibrant)]/30 flex items-center justify-center mb-3 text-[var(--orange-bright)]">
+                  <Headphones size={24} />
+                </div>
+                <h3 className="font-display text-base font-bold text-white mb-1.5">
+                  No customer experiences yet
+                </h3>
+                <p className="text-xs text-[var(--text-secondary)] max-w-xs leading-relaxed">
+                  Customer experiences submitted through ResoX will appear here.
+                </p>
+              </div>
             ) : filteredTickets.length === 0 ? (
-              <div className="moving-border-card p-8 text-center text-[var(--text-secondary)]">
-                <p className="text-sm font-mono">No feedback records found for filter '{filter}'.</p>
+              <div className="moving-border-card p-8 text-center text-[var(--text-secondary)] animate-card-in">
+                <p className="text-sm font-mono">
+                  No customer experiences found for filter '{filter.replace('_', ' ')}'.
+                </p>
               </div>
             ) : (
               filteredTickets.map((t) => {
@@ -511,9 +525,13 @@ export const AgentDashboard = () => {
                 <div className="w-16 h-16 rounded-2xl bg-[var(--orange-primary)]/10 border border-[var(--orange-vibrant)]/30 flex items-center justify-center mb-4 text-[var(--orange-bright)]">
                   <Headphones size={32} />
                 </div>
-                <h4 className="font-display text-base font-bold text-white mb-1">No ticket selected</h4>
+                <h4 className="font-display text-base font-bold text-white mb-1">
+                  {tickets.length === 0 ? 'No customer experiences yet' : 'No ticket selected'}
+                </h4>
                 <p className="text-xs text-[var(--text-muted)] max-w-sm">
-                  Select an experience ticket to inspect the AI analysis, improve customer experience status, or send replies.
+                  {tickets.length === 0
+                    ? 'Customer experiences submitted through ResoX will appear here.'
+                    : 'Select an experience ticket to inspect the AI analysis, improve customer experience status, or send replies.'}
                 </p>
               </div>
             )}
