@@ -36,7 +36,7 @@ export const AgentDashboard = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await api.get('/tickets/all');
+      const res = await api.get('/api/tickets/all');
       if (res.data?.success) {
         setTickets(res.data.tickets || []);
       }
@@ -54,7 +54,7 @@ export const AgentDashboard = () => {
   const selectTicket = async (ticket) => {
     setSelectedTicket(ticket);
     try {
-      const res = await api.get(`/tickets/${ticket.id}`);
+      const res = await api.get(`/api/tickets/${ticket.id}`);
       if (res.data?.success) {
         setMessages(res.data.messages || []);
       }
@@ -67,7 +67,7 @@ export const AgentDashboard = () => {
     if (!selectedTicket || statusUpdating) return;
     setStatusUpdating(true);
     try {
-      const res = await api.patch(`/tickets/${selectedTicket.id}/status`, { status: newStatus });
+      const res = await api.patch(`/api/tickets/${selectedTicket.id}/status`, { status: newStatus });
       if (res.data?.success) {
         setSelectedTicket((prev) => ({ ...prev, status: newStatus }));
         setTickets((prev) =>
@@ -86,7 +86,7 @@ export const AgentDashboard = () => {
     if (!newMessage.trim() || !selectedTicket || sendingMsg) return;
     setSendingMsg(true);
     try {
-      const res = await api.post(`/tickets/${selectedTicket.id}/messages`, {
+      const res = await api.post(`/api/tickets/${selectedTicket.id}/messages`, {
         message: newMessage.trim(),
       });
       if (res.data?.success) {

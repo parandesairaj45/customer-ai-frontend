@@ -77,7 +77,7 @@ export const CreateTicketPage = () => {
     }, 50);
 
     try {
-      const response = await api.post('/tickets', {
+      const response = await api.post('/api/tickets', {
         sector,
         issue_description: issueDescription.trim(),
       });

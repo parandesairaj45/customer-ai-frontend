@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api';
 import { PlusCircle, LogOut, RotateCcw, AlertCircle, Clock, Tag, Zap, Activity, MessageSquareHeart } from 'lucide-react';
+import InstallPwaButton from '../components/InstallPwaButton';
 
 export const CustomerDashboard = () => {
   const { user, logout } = useAuth();
@@ -88,6 +89,7 @@ export const CustomerDashboard = () => {
           </div>
 
           <div className="flex items-center gap-4">
+            <InstallPwaButton className="hidden sm:inline-flex" />
             <span className="text-sm text-[var(--text-secondary)]">
               Logged in as <strong className="text-white">{user?.name || 'Customer'}</strong>
             </span>

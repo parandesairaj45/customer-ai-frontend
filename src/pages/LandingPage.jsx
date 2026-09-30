@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sparkles, User, Headphones, ArrowRight, Activity, Zap, ShieldCheck } from 'lucide-react';
+import InstallPwaButton from '../components/InstallPwaButton';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -19,9 +20,12 @@ export const LandingPage = () => {
           </span>
         </div>
 
-        <div className="text-xs font-mono text-[var(--orange-bright)] px-3.5 py-1.5 rounded-full border border-[var(--orange-vibrant)]/35 bg-[var(--orange-primary)]/10 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[var(--orange-vibrant)] animate-ping" />
-          AI FEEDBACK INTELLIGENCE
+        <div className="flex items-center gap-3">
+          <InstallPwaButton />
+          <div className="text-xs font-mono text-[var(--orange-bright)] px-3.5 py-1.5 rounded-full border border-[var(--orange-vibrant)]/35 bg-[var(--orange-primary)]/10 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[var(--orange-vibrant)] animate-ping" />
+            AI FEEDBACK INTELLIGENCE
+          </div>
         </div>
       </header>
 
