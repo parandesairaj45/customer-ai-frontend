@@ -76,4 +76,18 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    return {
+      user: null,
+      token: null,
+      loading: false,
+      login: async () => ({ success: false, error: 'AuthProvider missing in component tree' }),
+      register: async () => ({ success: false, error: 'AuthProvider missing in component tree' }),
+      logout: () => {},
+      isAuthenticated: false,
+    };
+  }
+  return context;
+};
