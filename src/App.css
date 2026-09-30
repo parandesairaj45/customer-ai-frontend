@@ -1,0 +1,168 @@
+/* App.css - Specialized Animations & Micro-Interactions */
+
+/* Smooth fade-in and slide-up animations */
+.animate-card-in {
+  animation: cardEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.stagger-1 { animation-delay: 0.08s; }
+.stagger-2 { animation-delay: 0.16s; }
+.stagger-3 { animation-delay: 0.24s; }
+.stagger-4 { animation-delay: 0.32s; }
+.stagger-5 { animation-delay: 0.40s; }
+
+/* Cinematic Processing Sequence Animations */
+@keyframes stepGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 94, 0, 0.8), 0 0 45px rgba(255, 0, 127, 0.6);
+  }
+}
+
+.step-active-glow {
+  animation: stepGlow 1.8s infinite ease-in-out;
+}
+
+/* Glowing text ping */
+@keyframes textGlowPing {
+  0%, 100% {
+    text-shadow: 0 0 8px rgba(255, 94, 0, 0.4);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 0, 127, 0.8), 0 0 35px rgba(229, 9, 20, 0.6);
+  }
+}
+
+.glow-text-ping {
+  animation: textGlowPing 2s infinite ease-in-out;
+}
+
+/* Laser Scanning Line across Cards or Issue Input */
+.scanline-beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff007f 20%, #ff5e00 50%, #ff007f 80%, transparent);
+  box-shadow: 0 0 15px #ff5e00, 0 0 30px #ff007f;
+  animation: laserScan 2.4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes laserScan {
+  0% {
+    top: 5%;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 95%;
+    opacity: 0.3;
+  }
+}
+
+/* Fluid Glowing Progress Bar */
+.glow-progress-bar {
+  background: linear-gradient(90deg, #e50914 0%, #ff5e00 50%, #ff007f 100%);
+  background-size: 200% 100%;
+  animation: progressShimmer 2s linear infinite;
+  box-shadow: 0 0 18px rgba(255, 94, 0, 0.65), 0 0 30px rgba(255, 0, 127, 0.45);
+}
+
+@keyframes progressShimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* Priority Badges - Dynamic glowing alarms strictly in red/orange/pink */
+.badge-urgent {
+  background: rgba(229, 9, 20, 0.2);
+  border: 1px solid rgba(229, 9, 20, 0.8);
+  color: #ff3344;
+  box-shadow: 0 0 18px rgba(229, 9, 20, 0.5), inset 0 0 8px rgba(229, 9, 20, 0.3);
+  animation: urgentPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes urgentPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(229, 9, 20, 0.4);
+    border-color: rgba(229, 9, 20, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 0, 127, 0.7), 0 0 40px rgba(229, 9, 20, 0.6);
+    border-color: #ff007f;
+  }
+}
+
+.badge-high {
+  background: rgba(255, 94, 0, 0.2);
+  border: 1px solid rgba(255, 94, 0, 0.75);
+  color: #ff8833;
+  box-shadow: 0 0 14px rgba(255, 94, 0, 0.38);
+}
+
+.badge-medium {
+  background: rgba(255, 140, 0, 0.16);
+  border: 1px solid rgba(255, 140, 0, 0.5);
+  color: #ffaa44;
+}
+
+.badge-low {
+  background: rgba(200, 30, 60, 0.15);
+  border: 1px solid rgba(200, 30, 60, 0.4);
+  color: #ff7788;
+}
+
+/* Cybernetic Particle Overlay */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(1px);
+}
+
+/* Floating Orb Elements */
+.orb-1 {
+  position: absolute;
+  top: 5%;
+  left: 15%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.28) 0%, transparent 70%);
+  filter: blur(80px);
+  animation: orbPulse1 14s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.orb-2 {
+  position: absolute;
+  top: 35%;
+  right: 10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 94, 0, 0.24) 0%, transparent 70%);
+  filter: blur(95px);
+  animation: orbPulse2 16s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.orb-3 {
+  position: absolute;
+  bottom: 10%;
+  left: 30%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(255, 0, 127, 0.25) 0%, transparent 70%);
+  filter: blur(100px);
+  animation: orbPulse3 18s infinite ease-in-out;
+  pointer-events: none;
+}
