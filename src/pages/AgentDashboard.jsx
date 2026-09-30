@@ -121,7 +121,7 @@ export const AgentDashboard = () => {
         );
       default:
         return (
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-[var(--cyan-deep)]/25 text-[var(--cyan-bright)] border border-[var(--cyan-vibrant)]/40">
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-[var(--orange-primary)]/15 text-[var(--orange-bright)] border border-[var(--orange-vibrant)]/40">
             OPEN
           </span>
         );
@@ -147,12 +147,12 @@ export const AgentDashboard = () => {
       <header className="relative z-10 w-full bg-[var(--bg-card)]/80 backdrop-blur-md border-b border-[var(--border-subtle)] px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#00f0ff] via-[#8b5cf6] to-[#ff7a00] flex items-center justify-center shadow-[0_0_15px_rgba(0,240,255,0.4)]">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#ff6a00] via-[#ff7a00] to-[#ff8a1f] flex items-center justify-center shadow-[0_0_15px_rgba(255,106,0,0.5)]">
               <Headphones size={20} color="#fff" />
             </div>
             <div>
               <span className="font-display font-extrabold text-lg text-white">RESOX AI</span>
-              <span className="text-[11px] font-mono text-[var(--purple-neon)] ml-2 px-2 py-0.5 rounded bg-[var(--purple-deep)]/25 border border-[var(--purple-vibrant)]/35">
+              <span className="text-[11px] font-mono text-[var(--orange-bright)] ml-2 px-2.5 py-0.5 rounded-full bg-[var(--orange-primary)]/10 border border-[var(--orange-vibrant)]/35">
                 SUPPORT AGENT CX OPS
               </span>
             </div>
@@ -191,14 +191,14 @@ export const AgentDashboard = () => {
 
           {/* Filter Pills & Refresh */}
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1 p-1 rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] text-xs font-mono">
+            <div className="flex items-center gap-1 p-1 rounded-xl bg-[var(--bg-card)] border border-[var(--border-card)] text-xs font-mono">
               {['all', 'open', 'in_progress', 'resolved'].map((f) => (
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
                   className={`px-3 py-1.5 rounded-lg capitalize transition-all cursor-pointer ${
                     filter === f
-                      ? 'bg-gradient-to-r from-[var(--cyan-vibrant)] to-[var(--purple-vibrant)] text-black font-bold shadow-[0_0_12px_rgba(0,240,255,0.35)]'
+                      ? 'bg-gradient-to-r from-[var(--orange-primary)] to-[var(--orange-bright)] text-white font-bold shadow-[0_0_12px_rgba(255,106,0,0.45)]'
                       : 'text-[var(--text-muted)] hover:text-white'
                   }`}
                 >
@@ -210,7 +210,7 @@ export const AgentDashboard = () => {
             <button
               onClick={fetchTickets}
               className="btn-ghost-futuristic text-xs p-2 cursor-pointer"
-              title="Refresh tickets"
+              title="Refresh records"
             >
               <RotateCcw size={15} className={loading ? 'animate-spin' : ''} />
             </button>
@@ -231,7 +231,7 @@ export const AgentDashboard = () => {
           <div className="lg:col-span-5 flex flex-col space-y-3">
             {loading ? (
               <div className="moving-border-card p-12 text-center text-[var(--text-secondary)]">
-                <div className="w-8 h-8 rounded-full border-2 border-[var(--cyan-vibrant)] border-t-transparent animate-spin mx-auto mb-3" />
+                <div className="w-8 h-8 rounded-full border-2 border-[var(--orange-vibrant)] border-t-transparent animate-spin mx-auto mb-3" />
                 <p className="text-sm font-mono">Loading feedback records...</p>
               </div>
             ) : filteredTickets.length === 0 ? (
@@ -247,14 +247,14 @@ export const AgentDashboard = () => {
                     onClick={() => selectTicket(t)}
                     className={`p-4 rounded-xl cursor-pointer transition-all border ${
                       isSelected
-                        ? 'bg-[var(--bg-elevated)] border-[var(--cyan-vibrant)] shadow-[0_0_18px_rgba(0,240,255,0.25)]'
-                        : 'bg-[var(--bg-card)] border-[var(--border-subtle)] hover:border-[var(--purple-vibrant)]/50'
+                        ? 'bg-[var(--bg-elevated)] border-[var(--orange-vibrant)] shadow-[0_0_18px_rgba(255,106,0,0.3)]'
+                        : 'bg-[var(--bg-card)] border-[var(--border-card)] hover:border-[var(--orange-vibrant)]/50'
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2 mb-2">
                       <div className="flex items-center gap-2">
                         {getStatusBadge(t.status)}
-                        <span className="text-[11px] font-mono text-[var(--cyan-bright)] px-2 py-0.5 rounded bg-[var(--cyan-deep)]/20">
+                        <span className="text-[11px] font-mono text-[var(--orange-bright)] px-2 py-0.5 rounded bg-[var(--orange-primary)]/10">
                           {t.sector}
                         </span>
                       </div>
@@ -292,7 +292,7 @@ export const AgentDashboard = () => {
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       {getStatusBadge(selectedTicket.status)}
-                      <span className="text-xs font-mono text-[var(--cyan-bright)] px-2 py-0.5 rounded bg-[var(--cyan-deep)]/20">
+                      <span className="text-xs font-mono text-[var(--orange-bright)] px-2.5 py-0.5 rounded-full bg-[var(--orange-primary)]/10">
                         {selectedTicket.sector}
                       </span>
                       {selectedTicket.ai_priority && (
@@ -307,7 +307,7 @@ export const AgentDashboard = () => {
                   </div>
 
                   {/* Status Buttons */}
-                  <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#080a14] border border-[var(--border-subtle)] text-xs font-mono">
+                  <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#12141a] border border-[var(--border-card)] text-xs font-mono">
                     <span className="text-[11px] text-[var(--text-muted)] px-1 hidden sm:inline">Set Status:</span>
                     {['open', 'in_progress', 'resolved'].map((st) => (
                       <button
@@ -316,7 +316,7 @@ export const AgentDashboard = () => {
                         onClick={() => handleUpdateStatus(st)}
                         className={`px-2.5 py-1 rounded-lg capitalize transition-all cursor-pointer ${
                           selectedTicket.status === st
-                            ? 'bg-gradient-to-r from-[var(--cyan-vibrant)] to-[var(--purple-vibrant)] text-black font-bold'
+                            ? 'bg-gradient-to-r from-[var(--orange-primary)] to-[var(--orange-bright)] text-white font-bold'
                             : 'text-[var(--text-muted)] hover:text-white'
                         }`}
                       >
@@ -327,21 +327,21 @@ export const AgentDashboard = () => {
                 </div>
 
                 {/* Experience Feedback Text */}
-                <div className="p-3.5 rounded-xl bg-[#090b16] border border-[var(--border-subtle)]">
-                  <span className="text-[11px] font-mono text-[var(--cyan-bright)] block mb-1">CUSTOMER FEEDBACK & EXPERIENCE</span>
+                <div className="p-3.5 rounded-xl bg-[#13151c] border border-[var(--border-card)]">
+                  <span className="text-[11px] font-mono text-[var(--orange-bright)] block mb-1">CUSTOMER FEEDBACK & EXPERIENCE</span>
                   <p className="text-xs sm:text-sm text-[var(--text-primary)] leading-relaxed">
                     {selectedTicket.issue_description}
                   </p>
                 </div>
 
                 {/* AI Analysis Panel */}
-                <div className="p-4 rounded-xl bg-gradient-to-br from-[var(--cyan-deep)]/20 via-[var(--purple-deep)]/20 to-[var(--orange-deep)]/15 border border-[var(--cyan-vibrant)]/35 space-y-3">
+                <div className="p-4 rounded-xl bg-gradient-to-br from-[var(--orange-primary)]/15 via-[var(--purple-deep)]/20 to-[var(--bg-card)] border border-[var(--orange-vibrant)]/35 space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-[var(--cyan-bright)] font-bold flex items-center gap-1.5">
+                    <span className="text-xs font-mono text-[var(--orange-bright)] font-bold flex items-center gap-1.5">
                       <Sparkles size={14} />
                       AI EXPERIENCE ANALYSIS & REMEDY ACTION
                     </span>
-                    <span className="text-[10px] font-mono text-[var(--orange-bright)]">GEMINI 2.5 FLASH</span>
+                    <span className="text-[10px] font-mono text-[var(--orange-light)]">GEMINI 2.5 FLASH</span>
                   </div>
 
                   {selectedTicket.ai_summary && (
@@ -354,7 +354,7 @@ export const AgentDashboard = () => {
                   <div className="grid grid-cols-2 gap-3 text-xs pt-1">
                     <div>
                       <strong className="text-white block text-[11px] text-[var(--text-muted)]">CATEGORY</strong>
-                      <span className="text-[var(--cyan-bright)] font-semibold">{selectedTicket.ai_category || 'N/A'}</span>
+                      <span className="text-[var(--orange-bright)] font-semibold">{selectedTicket.ai_category || 'N/A'}</span>
                     </div>
                     <div>
                       <strong className="text-white block text-[11px] text-[var(--text-muted)]">SENTIMENT</strong>
@@ -363,7 +363,7 @@ export const AgentDashboard = () => {
                   </div>
 
                   {selectedTicket.ai_recommended_action && (
-                    <div className="p-3 rounded-lg bg-[var(--purple-deep)]/25 border border-[var(--purple-vibrant)]/35 text-xs">
+                    <div className="p-3 rounded-lg bg-[var(--orange-primary)]/15 border border-[var(--orange-vibrant)]/30 text-xs">
                       <strong className="text-white block mb-0.5">Recommended Next Action:</strong>
                       <p className="text-[var(--text-primary)] leading-relaxed">{selectedTicket.ai_recommended_action}</p>
                     </div>
@@ -387,8 +387,8 @@ export const AgentDashboard = () => {
                             key={m.id}
                             className={`p-3 rounded-xl text-xs max-w-[85%] ${
                               isAgent
-                                ? 'ml-auto bg-[var(--purple-deep)]/35 border border-[var(--purple-vibrant)]/45 text-white'
-                                : 'mr-auto bg-[var(--cyan-deep)]/25 border border-[var(--cyan-vibrant)]/30 text-[var(--text-primary)]'
+                                ? 'ml-auto bg-[var(--orange-primary)]/20 border border-[var(--orange-vibrant)]/40 text-white'
+                                : 'mr-auto bg-[var(--purple-deep)]/25 border border-[var(--purple-vibrant)]/30 text-[var(--text-primary)]'
                             }`}
                           >
                             <div className="flex items-center justify-between gap-2 mb-1 text-[10px] text-[var(--text-muted)]">
@@ -411,7 +411,7 @@ export const AgentDashboard = () => {
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       placeholder="Type agent reply to customer..."
-                      className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#080a14] border border-[var(--border-subtle)] text-white placeholder-[var(--text-muted)] text-xs outline-none focus:border-[var(--cyan-vibrant)]"
+                      className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#13151c] border border-[var(--border-card)] text-white placeholder-[var(--text-muted)] text-xs outline-none focus:border-[var(--orange-vibrant)]"
                     />
                     <button
                       type="submit"
@@ -426,7 +426,7 @@ export const AgentDashboard = () => {
               </div>
             ) : (
               <div className="moving-border-card p-12 text-center text-[var(--text-secondary)] h-full flex flex-col items-center justify-center">
-                <div className="w-16 h-16 rounded-2xl bg-[var(--cyan-deep)]/20 border border-[var(--cyan-vibrant)]/30 flex items-center justify-center mb-4 text-[var(--cyan-bright)]">
+                <div className="w-16 h-16 rounded-2xl bg-[var(--orange-primary)]/10 border border-[var(--orange-vibrant)]/30 flex items-center justify-center mb-4 text-[var(--orange-bright)]">
                   <Headphones size={32} />
                 </div>
                 <h4 className="font-display text-base font-bold text-white mb-1">No ticket selected</h4>

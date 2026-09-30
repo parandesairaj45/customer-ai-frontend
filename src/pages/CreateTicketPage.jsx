@@ -131,7 +131,7 @@ export const CreateTicketPage = () => {
             <span>Back to Dashboard</span>
           </Link>
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#00f0ff] via-[#8b5cf6] to-[#ff7a00] flex items-center justify-center">
+            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#ff6a00] via-[#ff7a00] to-[#ff8a1f] flex items-center justify-center shadow-[0_0_10px_rgba(255,106,0,0.5)]">
               <Zap size={13} className="text-white fill-white" />
             </div>
             <span className="font-display font-bold text-sm text-white">RESOX AI</span>
@@ -142,7 +142,7 @@ export const CreateTicketPage = () => {
       {/* Main Container */}
       <main className="relative z-10 flex-1 max-w-3xl w-full mx-auto px-6 py-10">
         <div className="mb-8 text-center sm:text-left animate-card-in">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--cyan-deep)]/25 border border-[var(--cyan-vibrant)]/30 text-[11px] font-mono text-[var(--cyan-bright)] mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--orange-primary)]/10 border border-[var(--orange-vibrant)]/35 text-[11px] font-mono text-[var(--orange-bright)] mb-3">
             <MessageSquareHeart size={13} />
             CUSTOMER FEEDBACK INGESTION
           </div>
@@ -174,10 +174,10 @@ export const CreateTicketPage = () => {
                 <select
                   value={sector}
                   onChange={(e) => setSector(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-[#090b16] border border-[var(--border-subtle)] focus:border-[var(--cyan-vibrant)] text-white text-sm outline-none transition-all cursor-pointer shadow-inner"
+                  className="w-full px-4 py-3 rounded-xl bg-[#13151c] border border-[var(--border-card)] focus:border-[var(--orange-vibrant)] text-white text-sm outline-none transition-all cursor-pointer shadow-inner"
                 >
                   {SECTORS.map((sec) => (
-                    <option key={sec} value={sec} className="bg-[#0b0e1e] text-white">
+                    <option key={sec} value={sec} className="bg-[#181a22] text-white">
                       {sec}
                     </option>
                   ))}
@@ -195,7 +195,7 @@ export const CreateTicketPage = () => {
                   value={issueDescription}
                   onChange={(e) => setIssueDescription(e.target.value)}
                   placeholder="Share your experience details, feedback, journey friction, or service expectations..."
-                  className="w-full p-4 rounded-xl bg-[#090b16] border border-[var(--border-subtle)] focus:border-[var(--cyan-vibrant)] text-white placeholder-[var(--text-muted)] text-sm outline-none transition-all focus:shadow-[0_0_15px_rgba(0,240,255,0.2)] resize-y shadow-inner"
+                  className="w-full p-4 rounded-xl bg-[#13151c] border border-[var(--border-card)] focus:border-[var(--orange-vibrant)] text-white placeholder-[var(--text-muted)] text-sm outline-none transition-all focus:shadow-[0_0_15px_rgba(255,106,0,0.22)] resize-y shadow-inner"
                 />
                 <div className="flex justify-between items-center mt-1 text-[11px] font-mono text-[var(--text-muted)]">
                   <span>Minimum 5 characters required</span>
@@ -218,9 +218,9 @@ export const CreateTicketPage = () => {
           /* AI Results Display */
           <div className="space-y-6 animate-card-in">
             {/* Top Success Banner */}
-            <div className="p-4 rounded-xl bg-gradient-to-r from-[var(--cyan-deep)]/30 via-[var(--purple-deep)]/30 to-[var(--orange-deep)]/25 border border-[var(--cyan-vibrant)]/40 flex items-center justify-between">
+            <div className="p-4 rounded-xl bg-gradient-to-r from-[var(--orange-primary)]/20 via-[var(--purple-deep)]/25 to-[var(--bg-card)] border border-[var(--orange-vibrant)]/40 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <CheckCircle size={22} className="text-[var(--cyan-vibrant)]" />
+                <CheckCircle size={22} className="text-[var(--orange-bright)]" />
                 <div>
                   <h3 className="font-display font-bold text-sm text-white">Experience Record Created & Analyzed</h3>
                   <p className="text-xs text-[var(--text-secondary)]">Stored securely with Experience Ticket ID #{aiResult.id?.slice(0, 8)}</p>
@@ -235,7 +235,7 @@ export const CreateTicketPage = () => {
             <div className="moving-border-card p-6 sm:p-8 space-y-6">
               {/* Summary */}
               <div>
-                <span className="text-xs font-mono text-[var(--cyan-bright)] block mb-1 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-xs font-mono text-[var(--orange-bright)] block mb-1 uppercase tracking-wider flex items-center gap-1.5">
                   <TrendingUp size={13} />
                   AI Experience Summary
                 </span>
@@ -246,16 +246,16 @@ export const CreateTicketPage = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[var(--border-subtle)]">
                 {/* Category */}
-                <div className="p-3.5 rounded-xl bg-[#090b16] border border-[var(--border-subtle)]">
+                <div className="p-3.5 rounded-xl bg-[#13151c] border border-[var(--border-card)]">
                   <span className="text-[11px] font-mono text-[var(--text-muted)] block mb-1">CATEGORY</span>
                   <div className="text-sm font-bold text-white flex items-center gap-1.5">
-                    <Layers size={14} className="text-[var(--cyan-bright)]" />
+                    <Layers size={14} className="text-[var(--orange-bright)]" />
                     <span>{aiResult.category}</span>
                   </div>
                 </div>
 
                 {/* Priority */}
-                <div className="p-3.5 rounded-xl bg-[#090b16] border border-[var(--border-subtle)]">
+                <div className="p-3.5 rounded-xl bg-[#13151c] border border-[var(--border-card)]">
                   <span className="text-[11px] font-mono text-[var(--text-muted)] block mb-1">TRIAGE PRIORITY</span>
                   <div className="text-sm font-bold uppercase text-[var(--orange-bright)]">
                     {aiResult.priority}
@@ -263,7 +263,7 @@ export const CreateTicketPage = () => {
                 </div>
 
                 {/* Sentiment */}
-                <div className="p-3.5 rounded-xl bg-[#090b16] border border-[var(--border-subtle)]">
+                <div className="p-3.5 rounded-xl bg-[#13151c] border border-[var(--border-card)]">
                   <span className="text-[11px] font-mono text-[var(--text-muted)] block mb-1">DETECTED SENTIMENT</span>
                   <div className="text-sm font-bold text-[var(--purple-neon)] flex items-center gap-1.5">
                     <Activity size={14} />
@@ -273,8 +273,8 @@ export const CreateTicketPage = () => {
               </div>
 
               {/* Recommended Action */}
-              <div className="p-4 rounded-xl bg-[var(--purple-deep)]/25 border border-[var(--purple-vibrant)]/35">
-                <span className="text-xs font-mono text-[var(--purple-neon)] block mb-1 font-bold flex items-center gap-1.5">
+              <div className="p-4 rounded-xl bg-[var(--orange-primary)]/10 border border-[var(--orange-vibrant)]/30">
+                <span className="text-xs font-mono text-[var(--orange-bright)] block mb-1 font-bold flex items-center gap-1.5">
                   <Sparkles size={14} />
                   RECOMMENDED ACTION PROTOCOL
                 </span>
@@ -312,14 +312,14 @@ export const CreateTicketPage = () => {
       {/* Cinematic AI Processing Sequence Modal */}
       {isProcessing && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="moving-border-card w-full max-w-lg p-8 bg-[#0b0e1d] text-center relative overflow-hidden shadow-2xl">
+          <div className="moving-border-card w-full max-w-lg p-8 bg-[#181a24] text-center relative overflow-hidden shadow-2xl">
             <div className="scanline-beam" />
 
             {/* Animated Neural Core */}
             <div className="relative w-20 h-20 mx-auto mb-6 flex items-center justify-center">
               <div className="pulse-ring-outer" />
               <div className="pulse-ring-inner" />
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#00f0ff] via-[#8b5cf6] to-[#ff7a00] flex items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.7)] animate-pulse">
+              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#ff6a00] via-[#ff7a00] to-[#ff8a1f] flex items-center justify-center shadow-[0_0_30px_rgba(255,106,0,0.7)] animate-pulse">
                 {React.createElement(PROCESSING_STEPS[currentStep]?.icon || Brain, {
                   size: 26,
                   color: '#fff',
@@ -336,7 +336,7 @@ export const CreateTicketPage = () => {
             </p>
 
             {/* Progress Bar */}
-            <div className="w-full bg-[#12162e] h-2 rounded-full overflow-hidden border border-[var(--border-subtle)] mb-6">
+            <div className="w-full bg-[#13151c] h-2 rounded-full overflow-hidden border border-[var(--border-subtle)] mb-6">
               <div
                 className="glow-progress-bar h-full rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
@@ -353,16 +353,16 @@ export const CreateTicketPage = () => {
                     key={step.title}
                     className={`flex items-center gap-3 p-2.5 rounded-lg text-xs font-mono transition-all ${
                       isCurr
-                        ? 'bg-[var(--cyan-deep)]/25 border border-[var(--cyan-vibrant)]/40 text-white font-bold'
+                        ? 'bg-[var(--orange-primary)]/15 border border-[var(--orange-vibrant)]/45 text-white font-bold'
                         : isDone
-                        ? 'text-[var(--cyan-bright)]'
+                        ? 'text-[var(--orange-bright)]'
                         : 'text-[var(--text-muted)]'
                     }`}
                   >
                     <span
                       className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
                         isDone
-                          ? 'bg-[var(--cyan-vibrant)] text-black font-bold'
+                          ? 'bg-[var(--orange-vibrant)] text-white font-bold'
                           : isCurr
                           ? 'bg-[var(--purple-vibrant)] text-white animate-spin'
                           : 'bg-white/10 text-[var(--text-muted)]'

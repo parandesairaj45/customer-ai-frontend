@@ -52,7 +52,7 @@ export const CustomerDashboard = () => {
         );
       default:
         return (
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-[var(--cyan-deep)]/25 text-[var(--cyan-bright)] border border-[var(--cyan-vibrant)]/35">
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-[var(--orange-primary)]/15 text-[var(--orange-bright)] border border-[var(--orange-vibrant)]/40">
             Open
           </span>
         );
@@ -78,11 +78,11 @@ export const CustomerDashboard = () => {
       <header className="w-full bg-[var(--bg-card)]/80 backdrop-blur-md border-b border-[var(--border-subtle)] px-6 py-4">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00f0ff] via-[#8b5cf6] to-[#ff7a00] flex items-center justify-center shadow-[0_0_12px_rgba(0,240,255,0.4)]">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#ff6a00] via-[#ff7a00] to-[#ff8a1f] flex items-center justify-center shadow-[0_0_12px_rgba(255,106,0,0.5)]">
               <Zap size={16} className="text-white fill-white" />
             </div>
             <span className="font-display font-bold text-lg text-white">ResoX AI</span>
-            <span className="text-xs font-mono text-[var(--cyan-bright)] ml-2 px-2 py-0.5 rounded bg-[var(--cyan-deep)]/20 border border-[var(--cyan-vibrant)]/30">
+            <span className="text-xs font-mono text-[var(--orange-bright)] ml-2 px-2.5 py-0.5 rounded-full bg-[var(--orange-primary)]/10 border border-[var(--orange-vibrant)]/30">
               Customer Experience Portal
             </span>
           </div>
@@ -121,7 +121,7 @@ export const CustomerDashboard = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={fetchTickets}
-              className="px-3.5 py-2 rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white text-xs flex items-center gap-1.5 transition-all cursor-pointer hover:border-[var(--cyan-vibrant)]"
+              className="px-3.5 py-2 rounded-xl bg-[var(--bg-card)] border border-[var(--border-card)] text-[var(--text-secondary)] hover:text-white text-xs flex items-center gap-1.5 transition-all cursor-pointer hover:border-[var(--orange-vibrant)]"
               title="Refresh records"
             >
               <RotateCcw size={14} className={loading ? 'animate-spin' : ''} />
@@ -149,12 +149,12 @@ export const CustomerDashboard = () => {
         {/* Tickets List */}
         {loading ? (
           <div className="p-12 text-center text-[var(--text-secondary)] border border-[var(--border-subtle)] rounded-2xl bg-[var(--bg-card)] backdrop-blur-md">
-            <div className="w-8 h-8 rounded-full border-2 border-[var(--cyan-vibrant)] border-t-transparent animate-spin mx-auto mb-3" />
+            <div className="w-8 h-8 rounded-full border-2 border-[var(--orange-vibrant)] border-t-transparent animate-spin mx-auto mb-3" />
             <p className="text-xs font-mono">Loading your experience records from server...</p>
           </div>
         ) : tickets.length === 0 ? (
-          <div className="p-12 text-center border border-[var(--border-subtle)] rounded-2xl bg-[var(--bg-card)] backdrop-blur-md animate-card-in">
-            <div className="w-12 h-12 rounded-2xl bg-[var(--cyan-deep)]/20 border border-[var(--cyan-vibrant)]/30 flex items-center justify-center mx-auto mb-4 text-[var(--cyan-bright)]">
+          <div className="p-12 text-center border border-[var(--border-card)] rounded-2xl bg-[var(--bg-card)] backdrop-blur-md animate-card-in">
+            <div className="w-12 h-12 rounded-2xl bg-[var(--orange-primary)]/10 border border-[var(--orange-vibrant)]/30 flex items-center justify-center mx-auto mb-4 text-[var(--orange-bright)]">
               <MessageSquareHeart size={24} />
             </div>
             <h3 className="font-display text-lg font-bold text-white mb-2">No experience records found</h3>
@@ -174,18 +174,18 @@ export const CustomerDashboard = () => {
             {tickets.map((ticket, index) => (
               <div
                 key={ticket.id}
-                className="p-5 rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--cyan-vibrant)]/50 transition-all flex flex-col gap-3 shadow-[0_4px_20px_rgba(0,0,0,0.4)] backdrop-blur-md hover:-translate-y-0.5 animate-card-in"
+                className="p-5 rounded-xl bg-[var(--bg-card)] border border-[var(--border-card)] hover:border-[var(--orange-vibrant)]/60 transition-all flex flex-col gap-3 shadow-[0_4px_20px_rgba(0,0,0,0.4)] backdrop-blur-md hover:-translate-y-0.5 animate-card-in"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 {/* Header line */}
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     {getStatusBadge(ticket.status)}
-                    <span className="text-xs font-mono text-[var(--cyan-bright)] px-2 py-0.5 rounded bg-[var(--cyan-deep)]/20 border border-[var(--cyan-vibrant)]/30">
+                    <span className="text-xs font-mono text-[var(--orange-bright)] px-2.5 py-0.5 rounded-full bg-[var(--orange-primary)]/10 border border-[var(--orange-vibrant)]/30">
                       {ticket.sector}
                     </span>
                     {ticket.ai_priority && (
-                      <span className={`text-[11px] font-mono px-2 py-0.5 rounded uppercase font-bold ${getPriorityBadge(ticket.ai_priority)}`}>
+                      <span className={`text-[11px] font-mono px-2 py-0.5 rounded uppercase font-bold border ${getPriorityBadge(ticket.ai_priority)}`}>
                         {ticket.ai_priority}
                       </span>
                     )}
@@ -211,7 +211,7 @@ export const CustomerDashboard = () => {
                 {(ticket.ai_category || ticket.ai_recommended_action) && (
                   <div className="pt-3 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
                     {ticket.ai_category && (
-                      <span className="text-[var(--cyan-bright)] flex items-center gap-1 font-mono">
+                      <span className="text-[var(--orange-bright)] flex items-center gap-1 font-mono">
                         <Tag size={12} />
                         Category: {ticket.ai_category}
                       </span>

@@ -11,43 +11,47 @@
 }
 
 :root {
-  /* Color Tokens - Modern Cyan + Purple + Orange Visual Identity */
-  --bg-void: #07080e;
-  --bg-primary: #0b0d18;
-  --bg-surface: #101322;
-  --bg-elevated: #161a30;
-  --bg-card: rgba(16, 19, 36, 0.75);
-  --bg-card-hover: rgba(24, 29, 54, 0.88);
+  /* Sophisticated Dark Grey / Graphite Base (around #181A1F / #1C1F24) */
+  --bg-void: #14161b;
+  --bg-primary: #181a20;
+  --bg-surface: #1e222a;
+  --bg-elevated: #252a35;
+  --bg-card: rgba(28, 32, 42, 0.8);
+  --bg-card-hover: rgba(34, 39, 52, 0.92);
 
-  /* Primary: Electric Cyan */
-  --cyan-deep: #086070;
-  --cyan-vibrant: #00f0ff;
-  --cyan-bright: #38bdf8;
-  --cyan-glow: rgba(0, 240, 255, 0.4);
+  /* PRIMARY BRAND COLOR: ELECTRIC / WARM ORANGE (DOMINANT) */
+  --orange-deep: #cc5200;
+  --orange-primary: #ff6a00;
+  --orange-vibrant: #ff7a00;
+  --orange-bright: #ff8a1f;
+  --orange-light: #ffa64d;
+  --orange-glow: rgba(255, 122, 0, 0.55);
+  --orange-subtle: rgba(255, 122, 0, 0.16);
 
-  /* Secondary: Deep Purple / Violet */
+  /* SECONDARY: PURPLE ACCENTS (SUBTLE ~20%) */
   --purple-deep: #4c1d95;
   --purple-vibrant: #8b5cf6;
   --purple-neon: #a855f7;
-  --purple-glow: rgba(139, 92, 246, 0.42);
+  --purple-glow: rgba(139, 92, 246, 0.28);
 
-  /* Accent: Vibrant Orange */
-  --orange-deep: #c2410c;
-  --orange-vibrant: #ff7a00;
-  --orange-bright: #fb923c;
-  --orange-glow: rgba(255, 122, 0, 0.42);
+  /* TERTIARY: CYAN ACCENTS (SUBTLE ~10%) */
+  --cyan-deep: #086070;
+  --cyan-vibrant: #00f0ff;
+  --cyan-bright: #38bdf8;
+  --cyan-glow: rgba(0, 240, 255, 0.25);
 
-  /* Text Hierarchy */
+  /* Text Hierarchy on Graphite Background */
   --text-white: #ffffff;
-  --text-primary: #f1f5f9;
+  --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
-  --text-dim: #334155;
+  --text-dim: #475569;
 
-  /* Borders & Dividers */
-  --border-subtle: rgba(0, 240, 255, 0.12);
-  --border-medium: rgba(139, 92, 246, 0.22);
-  --border-highlight: rgba(255, 122, 0, 0.4);
+  /* Borders & Dividers - Orange Tinted */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-card: rgba(255, 122, 0, 0.18);
+  --border-card-hover: rgba(255, 122, 0, 0.45);
+  --border-highlight: rgba(255, 106, 0, 0.6);
 
   /* Typography */
   --font-display: 'Space Grotesk', -apple-system, sans-serif;
@@ -62,7 +66,7 @@
 }
 
 html, body {
-  background-color: var(--bg-void);
+  background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-body);
   overflow-x: hidden;
@@ -70,20 +74,20 @@ html, body {
   line-height: 1.6;
 }
 
-/* Custom Scrollbar in Cyan / Purple / Orange */
+/* Custom Scrollbar in Electric Orange / Graphite */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #090a14;
+  background: #14161b;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--cyan-vibrant), var(--purple-vibrant), var(--orange-vibrant));
+  background: linear-gradient(180deg, var(--orange-bright), var(--orange-primary), var(--purple-vibrant));
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--cyan-bright), var(--purple-neon));
+  background: linear-gradient(180deg, #ff9433, var(--orange-bright));
 }
 
 /* Moving Border Angle Animation */
@@ -96,64 +100,80 @@ html, body {
   }
 }
 
-/* Floating Ambient Orbs */
-@keyframes orbFloatCyan {
-  0%, 100% {
+/* CONTINUOUS LIVING AMBIENT ENERGY FIELD (ORANGE DOMINANT) */
+@keyframes orbFloatOrangeLiving {
+  0% {
     transform: translate(0px, 0px) scale(1);
-    opacity: 0.25;
+    opacity: 0.4;
   }
-  33% {
-    transform: translate(70px, -50px) scale(1.18);
-    opacity: 0.42;
+  25% {
+    transform: translate(90px, -60px) scale(1.18);
+    opacity: 0.55;
   }
-  66% {
-    transform: translate(-50px, 60px) scale(0.92);
-    opacity: 0.3;
+  50% {
+    transform: translate(40px, 80px) scale(0.95);
+    opacity: 0.38;
+  }
+  75% {
+    transform: translate(-70px, 30px) scale(1.12);
+    opacity: 0.52;
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.4;
   }
 }
 
-@keyframes orbFloatPurple {
-  0%, 100% {
-    transform: translate(0px, 0px) scale(1);
-    opacity: 0.28;
-  }
-  33% {
-    transform: translate(-80px, 65px) scale(1.22);
-    opacity: 0.45;
-  }
-  66% {
-    transform: translate(60px, -55px) scale(0.88);
-    opacity: 0.32;
-  }
-}
-
-@keyframes orbFloatOrange {
-  0%, 100% {
+@keyframes orbFloatPurpleSubtle {
+  0% {
     transform: translate(0px, 0px) scale(1);
     opacity: 0.22;
   }
+  33% {
+    transform: translate(-80px, 60px) scale(1.15);
+    opacity: 0.32;
+  }
+  66% {
+    transform: translate(70px, -50px) scale(0.9);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.22;
+  }
+}
+
+@keyframes orbFloatCyanSubtle {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.16;
+  }
   50% {
-    transform: translate(55px, 70px) scale(1.15);
-    opacity: 0.38;
+    transform: translate(60px, 70px) scale(1.1);
+    opacity: 0.26;
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.16;
   }
 }
 
 /* Subtle Shimmer & Pulse */
 @keyframes subtlePulse {
   0%, 100% {
-    opacity: 0.6;
+    opacity: 0.7;
     transform: scale(1);
   }
   50% {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 }
 
 @keyframes cardEntrance {
   0% {
     opacity: 0;
-    transform: translateY(20px) scale(0.98);
+    transform: translateY(18px) scale(0.98);
   }
   100% {
     opacity: 1;
@@ -161,53 +181,60 @@ html, body {
   }
 }
 
-/* Global Background Orbs - Runs behind entire website */
-.bg-glow-orb-cyan {
+/* Global Background Orbs - Living Orange Energy Field on Graphite */
+.bg-glow-orb-orange-main {
   position: absolute;
-  top: -8%;
-  left: 10%;
-  width: 550px;
-  height: 550px;
-  background: radial-gradient(circle, rgba(0, 240, 255, 0.24) 0%, transparent 68%);
+  top: -5%;
+  left: 15%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(255, 106, 0, 0.38) 0%, rgba(255, 122, 0, 0.16) 45%, transparent 72%);
   filter: blur(110px);
-  animation: orbFloatCyan 20s infinite ease-in-out;
+  animation: orbFloatOrangeLiving 18s infinite ease-in-out;
+  will-change: transform, opacity;
+  pointer-events: none;
 }
 
-.bg-glow-orb-purple {
+.bg-glow-orb-purple-subtle {
   position: absolute;
-  top: 35%;
-  right: 5%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.26) 0%, transparent 68%);
-  filter: blur(120px);
-  animation: orbFloatPurple 24s infinite ease-in-out;
-}
-
-.bg-glow-orb-orange {
-  position: absolute;
-  bottom: 5%;
-  left: 25%;
+  top: 40%;
+  right: 8%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(255, 122, 0, 0.2) 0%, transparent 68%);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.24) 0%, transparent 68%);
+  filter: blur(120px);
+  animation: orbFloatPurpleSubtle 24s infinite ease-in-out;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.bg-glow-orb-cyan-subtle {
+  position: absolute;
+  bottom: 5%;
+  left: 20%;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.16) 0%, transparent 68%);
   filter: blur(115px);
-  animation: orbFloatOrange 22s infinite ease-in-out;
+  animation: orbFloatCyanSubtle 28s infinite ease-in-out;
+  will-change: transform, opacity;
+  pointer-events: none;
 }
 
 .cyber-ambient-grid {
   position: absolute;
   inset: 0;
   background-image: 
-    linear-gradient(to right, rgba(0, 240, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(139, 92, 246, 0.035) 1px, transparent 1px);
-  background-size: 54px 54px;
+    linear-gradient(to right, rgba(255, 122, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 52px 52px;
+  pointer-events: none;
 }
 
-/* Moving Border Card with Cyan-Purple-Orange Palette */
+/* Moving Border Card with Orange Dominance */
 .moving-border-card {
   position: relative;
-  background: linear-gradient(145deg, rgba(15, 18, 33, 0.88), rgba(9, 11, 20, 0.94));
+  background: linear-gradient(145deg, rgba(30, 34, 46, 0.88), rgba(24, 27, 36, 0.94));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 16px;
@@ -224,10 +251,11 @@ html, body {
   border-radius: 16px;
   background: conic-gradient(
     from var(--border-angle),
-    var(--cyan-vibrant) 0%,
-    var(--purple-vibrant) 35%,
-    var(--orange-vibrant) 70%,
-    var(--cyan-vibrant) 100%
+    var(--orange-primary) 0%,
+    var(--orange-bright) 40%,
+    var(--purple-vibrant) 70%,
+    var(--cyan-vibrant) 85%,
+    var(--orange-primary) 100%
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -239,10 +267,10 @@ html, body {
 
 .moving-border-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 16px 40px -8px rgba(0, 240, 255, 0.18), 0 0 30px -5px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 16px 40px -8px rgba(255, 106, 0, 0.25), 0 0 25px -5px rgba(255, 122, 0, 0.2);
 }
 
-/* Premium Primary Button (Cyan -> Purple -> Orange) */
+/* Premium Primary Button (ORANGE FIRST) */
 .btn-futuristic {
   position: relative;
   display: inline-flex;
@@ -250,18 +278,18 @@ html, body {
   justify-content: center;
   gap: 8px;
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 700;
+  font-size: 0.92rem;
   letter-spacing: 0.03em;
-  padding: 10px 22px;
+  padding: 11px 24px;
   border-radius: 12px;
   color: #ffffff;
-  background: linear-gradient(135deg, #00f0ff 0%, #8b5cf6 50%, #ff7a00 100%);
+  background: linear-gradient(135deg, #ff6a00 0%, #ff7a00 45%, #ff8a1f 100%);
   background-size: 200% 200%;
   border: 1px solid rgba(255, 255, 255, 0.25);
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 4px 18px rgba(0, 240, 255, 0.32), 0 0 20px rgba(139, 92, 246, 0.25);
+  box-shadow: 0 4px 20px rgba(255, 106, 0, 0.42), 0 0 16px rgba(255, 122, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   text-decoration: none;
 }
@@ -273,7 +301,7 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
   transform: translateX(-150%) skewX(-20deg);
   transition: transform 0.55s ease;
 }
@@ -281,7 +309,7 @@ html, body {
 .btn-futuristic:hover {
   background-position: 100% 50%;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 122, 0, 0.38), 0 0 35px rgba(0, 240, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(255, 106, 0, 0.65), 0 0 35px rgba(255, 138, 31, 0.45);
 }
 
 .btn-futuristic:hover::after {
@@ -292,7 +320,7 @@ html, body {
   transform: translateY(1px);
 }
 
-/* Secondary Ghost Button */
+/* Secondary Ghost Button (Graphite + Orange Accent) */
 .btn-ghost-futuristic {
   position: relative;
   display: inline-flex;
@@ -302,42 +330,42 @@ html, body {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 0.88rem;
-  padding: 10px 20px;
+  padding: 11px 22px;
   border-radius: 12px;
   color: var(--text-primary);
-  background: rgba(18, 22, 40, 0.65);
+  background: rgba(30, 34, 44, 0.72);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 240, 255, 0.25);
+  border: 1px solid rgba(255, 122, 0, 0.3);
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
 .btn-ghost-futuristic:hover {
   color: #fff;
-  border-color: var(--cyan-vibrant);
-  background: rgba(28, 34, 62, 0.8);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+  border-color: var(--orange-vibrant);
+  background: rgba(40, 46, 60, 0.88);
+  box-shadow: 0 0 20px rgba(255, 122, 0, 0.25);
   transform: translateY(-2px);
 }
 
-/* Text Gradient in Cyan / Purple / Orange */
+/* Text Gradient in Electric Orange to Amber */
 .text-fire-gradient {
-  background: linear-gradient(135deg, #00f0ff 0%, #a855f7 50%, #ff7a00 100%);
+  background: linear-gradient(135deg, #ff8a1f 0%, #ff6a00 50%, #ff4500 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.text-cyan-glow {
-  color: #00f0ff;
-  text-shadow: 0 0 14px rgba(0, 240, 255, 0.5);
+.text-orange-glow {
+  color: #ff7a00;
+  text-shadow: 0 0 14px rgba(255, 122, 0, 0.55);
 }
 
-/* Glassmorphism Surface */
+/* Glassmorphism Surface on Graphite */
 .glass-panel {
-  background: rgba(16, 20, 36, 0.72);
+  background: rgba(28, 32, 42, 0.78);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 240, 255, 0.15);
+  border: 1px solid rgba(255, 122, 0, 0.16);
   border-radius: 16px;
 }

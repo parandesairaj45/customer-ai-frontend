@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 
 /**
- * Interactive Particle Canvas in strictly Deep Red (#e50914), Vibrant Orange (#ff5e00), and Neon Pink (#ff007f).
- * Provides a dynamic, floating AI neural mesh that responds gently to mouse interaction.
+ * Living Ambient Energy Field & Particle Background for ResoX AI
+ * - Dominant living warm orange ambient glow drifting continuously
+ * - Secondary slow purple and cyan orbital glows
+ * - Floating luminous particles with constellation connections
+ * - Subtle cyber grid on dark graphite background
+ * - 100% pointer-events: none, completely non-blocking, GPU-accelerated
  */
 export const ParticleBackground = () => {
   const canvasRef = useRef(null);
@@ -16,12 +20,13 @@ export const ParticleBackground = () => {
     let height = (canvas.height = window.innerHeight);
 
     const handleResize = () => {
+      if (!canvas) return;
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
 
-    const mouse = { x: null, y: null, radius: 140 };
+    const mouse = { x: null, y: null, radius: 150 };
     const handleMouseMove = (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
@@ -30,32 +35,31 @@ export const ParticleBackground = () => {
       mouse.x = null;
       mouse.y = null;
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mouseleave', handleMouseLeave, { passive: true });
 
-    // Particle palette strictly in Deep Red, Vibrant Orange, and Neon Pink
-    const colors = [
-      'rgba(229, 9, 20, ',    // Deep Red
-      'rgba(255, 94, 0, ',    // Vibrant Orange
-      'rgba(255, 0, 127, ',   // Neon Pink
-      'rgba(255, 42, 150, ',  // Bright Neon Pink
-      'rgba(255, 126, 38, ',  // Light Orange
+    // Palette: Orange Dominant (70%), Subtle Purple (20%), Faint Cyan (10%)
+    const colorWeights = [
+      'rgba(255, 106, 0, ',   // Electric Orange
+      'rgba(255, 122, 0, ',   // Vibrant Warm Orange
+      'rgba(255, 148, 51, ',  // Bright Amber Orange
+      'rgba(255, 170, 77, ',  // Soft Orange Glow
+      'rgba(139, 92, 246, ',  // Subtle Purple
+      'rgba(0, 240, 255, ',   // Faint Cyan
     ];
 
-    const particleCount = Math.min(Math.floor((width * height) / 14000), 75);
+    const particleCount = Math.min(Math.floor((width * height) / 16000), 65);
     const particles = [];
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 2.5 + 1.2,
-        baseX: Math.random() * width,
-        baseY: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.7,
-        vy: (Math.random() - 0.5) * 0.7,
-        colorBase: colors[Math.floor(Math.random() * colors.length)],
-        alpha: Math.random() * 0.6 + 0.25,
+        size: Math.random() * 2.2 + 1.2,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        colorBase: colorWeights[Math.floor(Math.random() * colorWeights.length)],
+        alpha: Math.random() * 0.5 + 0.25,
         pulseSpeed: Math.random() * 0.02 + 0.008,
       });
     }
@@ -63,18 +67,18 @@ export const ParticleBackground = () => {
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Render connecting lines
+      // Render connecting constellation lines in warm amber/orange
       for (let a = 0; a < particles.length; a++) {
         for (let b = a + 1; b < particles.length; b++) {
           const dx = particles[a].x - particles[b].x;
           const dy = particles[a].y - particles[b].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 130) {
-            const lineAlpha = (1 - dist / 130) * 0.16;
+          if (dist < 110) {
+            const lineAlpha = (1 - dist / 110) * 0.14;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(255, 70, 90, ${lineAlpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(255, 122, 0, ${lineAlpha})`;
+            ctx.lineWidth = 0.75;
             ctx.moveTo(particles[a].x, particles[a].y);
             ctx.lineTo(particles[b].x, particles[b].y);
             ctx.stroke();
@@ -82,50 +86,49 @@ export const ParticleBackground = () => {
         }
       }
 
-      // Render and update individual particles
+      // Update and draw particles
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
-        // Move
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap boundaries
+        // Wrap boundaries seamlessly
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
         if (p.y < 0) p.y = height;
         if (p.y > height) p.y = 0;
 
-        // Mouse interaction
+        // Gentle interactive mouse drift
         if (mouse.x !== null && mouse.y !== null) {
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius) {
+          if (dist < mouse.radius && dist > 0) {
             const force = (mouse.radius - dist) / mouse.radius;
             const dirX = dx / dist;
             const dirY = dy / dist;
-            p.x -= dirX * force * 2.5;
-            p.y -= dirY * force * 2.5;
+            p.x -= dirX * force * 1.8;
+            p.y -= dirY * force * 1.8;
           }
         }
 
-        // Pulse alpha
-        p.alpha += Math.sin(Date.now() * p.pulseSpeed) * 0.01;
-        const currentAlpha = Math.max(0.15, Math.min(0.85, p.alpha));
+        // Breathing pulse
+        p.alpha += Math.sin(Date.now() * p.pulseSpeed) * 0.008;
+        const currentAlpha = Math.max(0.18, Math.min(0.85, p.alpha));
 
-        // Draw particle glow
+        // Soft radial glow aura
         ctx.beginPath();
-        const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2.8);
+        const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
         gradient.addColorStop(0, `${p.colorBase}${currentAlpha})`);
         gradient.addColorStop(1, `${p.colorBase}0)`);
         ctx.fillStyle = gradient;
-        ctx.arc(p.x, p.y, p.size * 2.8, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
         ctx.fill();
 
-        // Draw core
+        // Bright particle core
         ctx.beginPath();
-        ctx.fillStyle = `${p.colorBase}${Math.min(1, currentAlpha + 0.3)})`;
+        ctx.fillStyle = `${p.colorBase}${Math.min(1, currentAlpha + 0.35)})`;
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -144,10 +147,25 @@ export const ParticleBackground = () => {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-80"
-      style={{ mixBlendMode: 'screen' }}
-    />
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+      {/* Living Orange Energy Glow Field (Continuous slow organic movement) */}
+      <div className="bg-glow-orb-orange-main" />
+
+      {/* Secondary Orbital Ambient Glows */}
+      <div className="bg-glow-orb-purple-subtle" />
+      <div className="bg-glow-orb-cyan-subtle" />
+
+      {/* Subtle Graphite Cyber Grid */}
+      <div className="cyber-ambient-grid" />
+
+      {/* Interactive Constellation Particle Canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 pointer-events-none"
+        style={{ mixBlendMode: 'screen', opacity: 0.85 }}
+      />
+    </div>
   );
 };
+
+export default ParticleBackground;

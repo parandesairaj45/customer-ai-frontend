@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import ParticleBackground from "./components/ParticleBackground";
 
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
@@ -15,16 +16,11 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="relative min-h-screen bg-[var(--bg-void,#07080e)] text-[var(--text-primary,#f1f5f9)] overflow-x-hidden selection:bg-[var(--cyan-vibrant,#00f0ff)] selection:text-black">
-          {/* Subtle animated background that runs BEHIND the entire website */}
-          <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-            <div className="bg-glow-orb-cyan" />
-            <div className="bg-glow-orb-purple" />
-            <div className="bg-glow-orb-orange" />
-            <div className="cyber-ambient-grid" />
-          </div>
+        <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] overflow-x-hidden selection:bg-[var(--orange-vibrant)] selection:text-black">
+          {/* Living Animated Background running continuously behind entire website */}
+          <ParticleBackground />
 
-          {/* Main content layer positioned safely above the background */}
+          {/* Main content layer safely elevated above background */}
           <div className="relative z-10 min-h-screen flex flex-col">
             <Routes>
               <Route path="/" element={<LandingPage />} />
